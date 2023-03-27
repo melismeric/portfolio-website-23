@@ -176,8 +176,8 @@ const fragmentShader2 = `
         const planeGeo = new THREE.PlaneGeometry(2000, 2000);
         let xfloorMat = new THREE.MeshStandardMaterial( {
             roughness: 0.8,
-            color: 0xffffff,
-            metalness: 0.2,
+            color: 0x7a7a7a,
+            metalness:1.2,
             bumpScale: 0.0005
         } );
         const textureLoader = new THREE.TextureLoader();
@@ -232,7 +232,7 @@ const fragmentShader2 = `
         scene.fog = new THREE.FogExp2(0x11111f, 0.002);
 
         renderer.setClearColor(scene.fog.color);
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(window.innerWidth/1.2, window.innerHeight/1.2);
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.BasicShadowMap;
         //document.body.appendChild(renderer.domElement);
@@ -244,34 +244,26 @@ const fragmentShader2 = `
         controls.update();
 
         // Create a rain texture
-let loader = new THREE.TextureLoader();
-            const rainTexture = loader.load("/textures/raindrop.jpeg");
-
-            // Create a particle system
-            const particleCount = 5000;
-            const particles = new THREE.BufferGeometry();
-             particles.vertices = [];
-
-            for (let i = 0; i < particleCount; i++) {
-              const x = Math.random() * 800 - 500;
-              const y = Math.random() * 800 + 200;
-              const z = Math.random() * 800 - 500;
-
-              const particle = new THREE.Vector3(x, y, z);
-              particles.vertices.push(particle);
-            }
-
-            const particleMaterial = new THREE.PointsMaterial({
-              color: 0xffffff,
-              size: 10,
-              map: rainTexture,
-              blending: THREE.AdditiveBlending,
-              transparent: true,
-            });
-
-            const particleSystem = new THREE.Points(particles, particleMaterial);
-            particleSystem.position.z = -100;
-            scene.add(particleSystem);
+        const loader = new THREE.TextureLoader();
+         rainGeo = new THREE.BufferGeometry();
+         rainGeo.vertices = [];
+          for(let i=0;i<rainCount;i++) {
+              let rainDrop = new THREE.Vector3(
+                  Math.random() * 800 - 500,
+                  Math.random() * 800 + 200, //- 850,
+                  Math.random() * 800 - 500
+              );
+              rainDrop.velocity = {};
+              rainDrop.velocity = 0;
+              rainGeo.vertices.push(rainDrop);
+          }
+          let rainMaterial = new THREE.PointsMaterial({
+              color: 0xaaaaaa,
+              size: 15,
+              transparent: true
+          });
+          rain = new THREE.Points(rainGeo,rainMaterial);
+          scene.add(rain);
 
         
         loader.load("/textures/cloud.png", function(texture){
@@ -346,7 +338,16 @@ let loader = new THREE.TextureLoader();
             cloudParticles.children[i].rotation.z -=0.002;
         }
 
-        particleSystem.rotation.y += 0.01;
+                     rainGeo.vertices.forEach(p => {
+                            p.velocity -= 0.1 + Math.random() * 0.1;
+                            p.y += p.velocity;
+                            if (p.y < -200) {
+                                p.y = 200;
+                                p.velocity = 0;
+                            }
+                        });
+                        rainGeo.verticesNeedUpdate = true;
+                        rain.rotation.y +=0.002;
 
         var time = Date.now() * 0.0005;
 
@@ -552,7 +553,14 @@ let loader = new THREE.TextureLoader();
   return (
   <div style={{backgroundColor: "#000000"}}>
       <Header/>
-      <canvas ref={canvasRef} />
+      <div className={styles.container}> 
+        <h2 className={styles.title} >Spaceship</h2>
+        <h6 className={styles.text}>Shader created with GLSL & 3js for the course project of CCI - Coding One: Advanced Creative Coding.</h6>
+        <h6 className={styles.text}><a style={{color:"wheat"}} href="https://github.com/melismeric/UAL-CodingOne/tree/main/3js/Spaceship">Github</a></h6>
+        <h6 className={styles.text}><a style={{color:"wheat"}} href="https://mimicproject.com/code/ab67b347-7553-7767-15a1-e8d9415684ed">MIMIC</a></h6>
+
+      </div>
+      <canvas style={{display: "flex", margin: "auto", flexDirection: "row", justifyContent: "center"}} ref={canvasRef} />
       <Footer/>
     </div>
   )
