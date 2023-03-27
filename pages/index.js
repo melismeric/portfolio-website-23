@@ -27,7 +27,7 @@ export default function Home() {
              <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
              <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
              <br/>
-              <a href="proj18.html">
+              <a href="/intpaint">
                 <Image alt="intpaint" width={320} height={320} className={styles.img} src="/home/intpaint.png"/>
              </a>
              <figcaption className={styles.caption} >Interactive Painting</figcaption>

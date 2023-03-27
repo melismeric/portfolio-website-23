@@ -37,6 +37,16 @@
   align-items: center;
 }
 
+.videoContainerWide {
+  display: flex;
+  widtH: 80%;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+}
+
 .canvasContainer {
     flex-grow: 1;
   display: flex;
