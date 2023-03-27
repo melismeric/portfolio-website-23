@@ -66,7 +66,7 @@ export default function Home() {
                <figcaption className={styles.caption}>AI Flowers</figcaption>
                <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
                <br/>
-                <a href="proj19.html">
+                <a href="/boid">
                   <Image alt="boid"  width={320} height={320} className={styles.img} src="/home/boid.gif"/>
               </a>
               <figcaption className={styles.caption}>Boid Simulation</figcaption>
