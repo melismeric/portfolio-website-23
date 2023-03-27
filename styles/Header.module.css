@@ -1,0 +1,22 @@
+.title {
+  text-decoration: none; 
+  font-family: 'Montserrat-Regular'; 
+  text-shadow: 1px 1px #cf4521; 
+  color:  #FFF8E6;
+  font-size: 35px;
+}
+
+.contactTxt {
+  font-family: 'Montserrat-Regular'; 
+  font-weight: bold; color:#FFF8E6 ;
+}
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+.vert_align {
+    display: 'flex';
+    flexDirection: 'column';
+}

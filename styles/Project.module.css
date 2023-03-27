@@ -1,0 +1,56 @@
+.page {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+.text {
+  font-family: 'Montserrat-Regular'; 
+  color:#FFF8E6 ;
+}
+
+.title {
+  font-family: 'Montserrat-Regular'; 
+  font-weight: bold; color:#ecb22c;;
+}
+
+.container {
+  display: flex;
+  widtH: 60%;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+
+}
+
+.videoContainer {
+  display: flex;
+  widtH: 60%;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+    background-color: #000000;
+}
+
+.canvasContainer {
+  position: fixed;
+  top:50%;
+  left:20px;
+  height:100px;
+  width:100px;
+}
+
