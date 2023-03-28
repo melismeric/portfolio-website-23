@@ -75,7 +75,7 @@ export default function Home() {
       
     
         <div className={styles.videoContainer} style={{paddingTop: "40px"}}>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/svcvmbKqDow" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="400px" class="responsive-iframe" src="https://www.youtube.com/embed/svcvmbKqDow" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
 
 

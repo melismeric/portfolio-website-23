@@ -103,7 +103,7 @@ const fragmentShader = `
         <h6 className={styles.text}>Interactive paintings are implemented using GLSL shaders and OpenFrameworks. I also used a sound sample and visualized it. Users can interact with the paintings and the sound with their touch. The pressure of their touch changes the color of the painting. Piezo disc sensor, connected to an Arduino Leonardo, detects touch input. Shaders take sound, sensor values, and input from GUI as uniforms. When the user touches the sensor it disturbs the shader and sound. As the sensor value is added to the sin wave of the shader it speeds up the forms on the shaders and creates different visual effects. If the touch sensor value is bigger than a certain threshold it also speeds up the sound by multiplying its value.</h6>
         <h6 className={styles.text}><a style={{color:"wheat"}} href="https://github.com/melismeric/UAL-CODINGTWO/tree/main/Interactive%20Paintings">Github Source Code</a></h6>
      
-      <Carousel className={styles.videoContainerWide }>
+      <Carousel className={styles.videoContainer }>
         <div>
           <iframe width="100%" height="400px" src="https://www.youtube.com/embed/3lNxoQRVv9Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>

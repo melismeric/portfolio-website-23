@@ -28,30 +28,28 @@ export default function Home() {
 
         <h6 className={styles.text}><a style={{color:"wheat"}} href="https://git.arts.ac.uk/21004071/MSc-Coding-3/tree/main/Final%20Project">Source Code</a>  for ML Final Project (older version of this project to generate images from combined datasets) </h6>
 
-      <Row> 
-        <Col style={{paddingTop: "6px"}} >
-          <Image alt="flower" width={320} height={320} src="/src/flower.gif"/>
-          <Image alt="flower" style={{marginLeft: "6px"}} width={320} height={320} src="/src/flower10.gif"/>
-          <Image alt="flower" style={{marginLeft: "6px"}} width={320} height={320} src="/src/flower2.gif"/>
+        <Row className="justify-content-center">
+          <Col xs={12} sm={6} md={4} className="text-center">
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower10.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower2.gif"/>
 
-        </Col>
-            </Row>
-            <Row> 
-          <Col style={{paddingTop: "6px"}}>
-          <Image alt="flower" width={320} height={320} src="/src/flower3.gif"/>
-          <Image alt="flower" width={320} height={320} style={{marginLeft: "6px"}} src="/src/flower4.gif"/>
-          <Image alt="flower" width={320} height={320} style={{marginLeft: "6px"}} src="/src/flower5.gif"/>
+          </Col>
 
-        </Col>
-            </Row> 
-            <Row> 
-          <Col style={{paddingTop: "6px"}}>
-          <Image alt="flower" width={320} height={320} src="/src/flower6.gif"/>
-          <Image alt="flower" width={320} height={320} style={{marginLeft: "6px"}} src="/src/flower7.gif"/>
-          <Image alt="flower" width={320} height={320} style={{marginLeft: "6px"}} src="/src/flower9.gif"/>
+          <Col xs={12} sm={6} md={4} className="text-center">
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower3.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower4.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower5.gif"/>
 
-        </Col>
-      </Row>
+          </Col>
+
+          <Col xs={12} sm={6} md={4} className="text-center">
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower6.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower7.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower9.gif"/>
+
+          </Col>
+        </Row>
 
 
       </div>
