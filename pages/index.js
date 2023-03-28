@@ -105,7 +105,7 @@ export default function Home() {
               <figcaption className={styles.caption}>Wetmixer</figcaption>
               <figcaption className={styles.caption}>CCI Physical Computing Course Project 2021</figcaption>
               <br/>
-              <a href="advancedenv.html">
+              <a href="/touchyfeely">
                 <Image alt="img" width={320} height={320} className={styles.img} src="/home/image.png"/>
               </a>
               <figcaption className={styles.caption}>Touchy Feely</figcaption>
