@@ -21,12 +21,12 @@ export default function Home() {
       <main>
       <div className={styles.container} style={{paddingTop: "40px"}}>
         <Row>
-          <Col>
+          <Col xs={12} sm={6} md={6}>
             <div >
-              <iframe width="580" height="440" src="https://www.youtube.com/embed/__IKR4uh59Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              <iframe width="100%" height="440" src="https://www.youtube.com/embed/__IKR4uh59Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
           </Col>
-          <Col>
+          <Col xs={12} sm={6} md={6}>
 
               <h2 className={styles.title} >BOID SIMULATION</h2>
               <h6 className={styles.text}>A 3D scene of Boid simulation implemented with C++ and OpenFrameworks</h6>

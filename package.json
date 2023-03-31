@@ -7,13 +7,18 @@
   },
   "dependencies": {
     "@react-three/fiber": "^8.12.0",
+    "babel-runtime": "^6.26.0",
     "bootstrap": "^5.2.3",
+    "dat.gui": "^0.7.9",
+    "gltf-loader": "^1.0.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^18.2.0",
+    "react-player": "^2.12.0",
     "react-responsive-carousel": "^3.2.23",
+    "react-script-tag": "^1.1.2",
     "three": "^0.150.1",
     "tween.js": "^16.6.0"
   }

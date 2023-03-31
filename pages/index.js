@@ -33,25 +33,25 @@ export default function Home() {
              <figcaption className={styles.caption} >Interactive Painting</figcaption>
              <figcaption className={styles.caption} >CCI Course Project 2022</figcaption>
              <br/>
-              <a href="project1.html">
+              <a href="/kaleidoscope">
                 <Image alt="kaleidoscope" width={320} height={320} className={styles.img} src="/home/kaleidoscope.gif"/>
              </a>
              <figcaption className={styles.caption}>Kaleidoscope Shader</figcaption>
              <figcaption className={styles.caption}>CCI Course Project 2021</figcaption>
              <br/>
-             <a href="proj5.html">
+             <a href="/starrynight">
               <Image alt="Starry" width={320} height={320} className={styles.img} src="/home/starry.gif"/>
              </a>
              <figcaption className={styles.caption}>Interactive Starry Night</figcaption>
              <figcaption className={styles.caption}>CCI Course Project 2021</figcaption>
              <br/>
-              <a href="proj8.html">
+              <a href="/polylines">
                 <Image alt="ofpoly" width={320} height={320} className={styles.img} src="/home/Openframeworks Interactive Polylines.png"/>
               </a>
               <figcaption className={styles.caption}>Webcam Interactive Polylines</figcaption>
               <figcaption className={styles.caption}>Openframeworks 2020</figcaption>
               <br/>
-              <a href="proj16.html">
+              <a href="/soundreactiveled">
                 <Image alt="led"  width={320} height={320} className={styles.img} src="/home/Sound Interactive Led Project.png"/>
               </a>
               <figcaption className={styles.caption}>Sound Interactive Led</figcaption>
@@ -72,25 +72,25 @@ export default function Home() {
               <figcaption className={styles.caption}>Boid Simulation</figcaption>
               <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
               <br/>
-              <a href="project2.html">
+              <a href="/connection">
                 <Image alt="connection" width={320} height={320} className={styles.img} src="/home/connection.gif"/>
               </a>
               <figcaption className={styles.caption}>Connection</figcaption>
               <figcaption className={styles.caption}>CCI Course Project 2021</figcaption>
               <br/>
-              <a href="proj6.html">
+              <a href="/magritte">
                 <Image alt="pipe" width={350} height={350} className={styles.img} src="/home/pipe.png"/>
               </a>
               <figcaption className={styles.caption}>Recreated Treachery Of Images</figcaption>
               <figcaption className={styles.caption}>CCI Course Project 2021</figcaption>
               <br/>
-              <a href="proj13.html">
+              <a href="/pumpkin">
                 <Image alt="pumpkin" width={320} height={320} className={styles.img} src="/home/pumpkin.gif" autoplay/>
               </a>
               <figcaption className={styles.caption}>Light Detecting Pumpkin</figcaption>
               <figcaption className={styles.caption}>CCI Physical Computing Course Project 2021</figcaption>
               <br/>
-                            <a href="proj11.html">
+              <a href="/paintpolyline">
                 <Image alt="paint" width={320} height={320} className={styles.img} src="/home/paint.jpg"/>
               </a>
               <figcaption className={styles.caption}>Paint with Polylines</figcaption>
@@ -111,25 +111,25 @@ export default function Home() {
               <figcaption className={styles.caption}>Touchy Feely</figcaption>
               <figcaption className={styles.caption}>CCI Advanced Environments Course Project 2022</figcaption>
               <br/>
-              <a href="proj14.html">
+              <a href="/rooms">
                 <Image alt="extra" width={320} height={320} className={styles.img}  src="/home/extra.gif" autoplay/>
               </a>
               <figcaption className={styles.caption}>3js Rooms</figcaption>
               <figcaption className={styles.caption}>CCI Course Project, Threejs, 2021</figcaption>
               <br/>
-              <a href="proj10.html">
+              <a href="/paintingstomesh">
                 <Image alt="vincent" width={320} height={320} className={styles.img} src="/home/vincent.gif" autoplay/>
               </a>
               <figcaption className={styles.caption}>Paintings To Mesh</figcaption>
               <figcaption className={styles.caption}>Openframeworks 2020</figcaption>
               <br/>
-              <a href="proj12.html">
+              <a href="/arduinfeedback">
                 <Image alt="feedback" width={320} height={320} className={styles.img} src="/home/w3-l4-feedback.gif" autoplay/>
               </a>
               <figcaption className={styles.caption}>Arduino Feedback System</figcaption>
               <figcaption className={styles.caption}>CCI Advanced Physical Computing Course Project 2021</figcaption>
               <br/>
-              <a href="proj9.html">
+              <a href="/openglGame">
                 <Image alt="lab" width={320} height={320} className={styles.img} src="/home/lab.png"/>
               </a>
               <figcaption className={styles.caption}>Labyrinth Game</figcaption>
@@ -144,29 +144,23 @@ export default function Home() {
               <figcaption className={styles.caption}>Spaceship</figcaption>
               <figcaption className={styles.caption}>CCI Course Project, Threejs, 2021</figcaption>
               <br/>
-              <a href="blender.html">
+              <a href="/blender">
                 <Image alt="cloud" width={320} height={320} className={styles.img} src="/home/clouds2.png"/>
               </a>
               <figcaption className={styles.caption}>Blender Projects</figcaption>
               <figcaption className={styles.caption}>2022</figcaption>
               <br/>
-              <a href="proj7.html">
+              <a href="/cleanwallet">
                 <Image alt="wallet" width={320} height={320} className={styles.img} src="/home/wallet.jpg"/>
               </a>
               <figcaption className={styles.caption}>Safe Wallet</figcaption>
               <figcaption className={styles.caption}>SU Physical Computing Course Project 2020</figcaption>
               <br/>
-              <a href="proj15.html">
+              <a href="/openframeworks">
                 <Image alt="pink" width={320} height={320} className={styles.img} src="/home/pink.gif" autoplay/>
               </a>
               <figcaption className={styles.caption}>Geometric Loops</figcaption>
               <figcaption className={styles.caption}>Openframeworks Basics 2020</figcaption>
-              <br/>
-              <a href="proj17.html">
-                  <Image alt="arduino" width={320} height={320} className={styles.img} src="/home/arduino.jpg"/>
-              </a>
-              <figcaption className={styles.caption}>DIY Arduino</figcaption>
-              <figcaption className={styles.caption}>SU Physical Computing Course Project 2020</figcaption>
               <br/>
             </Col>
           </Row>
