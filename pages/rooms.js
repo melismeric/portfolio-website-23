@@ -9,112 +9,89 @@ import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUti
 import TWEEN from 'tween.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
-
+import { ImprovedNoise } from 'three/addons/math/ImprovedNoise.js';
 
 export default function Home() {
 
   // Define the vertex shader code
-const vertexShader = `
-    varying vec3 vPos;
-    varying vec3 vNormal;
-    void main() {
-      vPos = (modelMatrix * vec4(position, 1.0 )).xyz;
-      vNormal = normalMatrix * normal;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-    }
-`;
+            const vertexShader = /* glsl */`
+                    in vec3 position;
+                    uniform mat4 modelMatrix;
+                    uniform mat4 modelViewMatrix;
+                    uniform mat4 projectionMatrix;
+                    uniform vec3 cameraPos;
+                    out vec3 vOrigin;
+                    out vec3 vDirection;
+                    void main() {
+                        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+                        vOrigin = vec3( inverse( modelMatrix ) * vec4( cameraPos, 1.0 ) ).xyz;
+                        vDirection = position - vOrigin;
+                        gl_Position = projectionMatrix * mvPosition;
+                    }
+                `;
 
-// Define the fragment shader code
-const fragmentShader = `
-    uniform vec3 diffuse;
-    varying vec3 vPos;
-    varying vec3 vNormal;
+                const fragmentShader = /* glsl */`
+                    precision highp float;
+                    precision highp sampler3D;
+                    uniform mat4 modelViewMatrix;
+                    uniform mat4 projectionMatrix;
+                    in vec3 vOrigin;
+                    in vec3 vDirection;
+                    out vec4 color;
+                    uniform sampler3D map;
+                    uniform float threshold;
+                    uniform float steps;
+                    vec2 hitBox( vec3 orig, vec3 dir ) {
+                        const vec3 box_min = vec3( - 0.5 );
+                        const vec3 box_max = vec3( 0.5 );
+                        vec3 inv_dir = 1.0 / dir;
+                        vec3 tmin_tmp = ( box_min - orig ) * inv_dir;
+                        vec3 tmax_tmp = ( box_max - orig ) * inv_dir;
+                        vec3 tmin = min( tmin_tmp, tmax_tmp );
+                        vec3 tmax = max( tmin_tmp, tmax_tmp );
+                        float t0 = max( tmin.x, max( tmin.y, tmin.z ) );
+                        float t1 = min( tmax.x, min( tmax.y, tmax.z ) );
+                        return vec2( t0, t1 );
+                    }
+                    float sample1( vec3 p ) {
+                        return texture( map, p ).r;
+                    }
+                    #define epsilon .0001
+                    vec3 normal( vec3 coord ) {
+                        if ( coord.x < epsilon ) return vec3( 1.0, 0.0, 0.0 );
+                        if ( coord.y < epsilon ) return vec3( 0.0, 1.0, 0.0 );
+                        if ( coord.z < epsilon ) return vec3( 0.0, 0.0, 1.0 );
+                        if ( coord.x > 1.0 - epsilon ) return vec3( - 1.0, 0.0, 0.0 );
+                        if ( coord.y > 1.0 - epsilon ) return vec3( 0.0, - 1.0, 0.0 );
+                        if ( coord.z > 1.0 - epsilon ) return vec3( 0.0, 0.0, - 1.0 );
+                        float step = 0.01;
+                        float x = sample1( coord + vec3( - step, 0.0, 0.0 ) ) - sample1( coord + vec3( step, 0.0, 0.0 ) );
+                        float y = sample1( coord + vec3( 0.0, - step, 0.0 ) ) - sample1( coord + vec3( 0.0, step, 0.0 ) );
+                        float z = sample1( coord + vec3( 0.0, 0.0, - step ) ) - sample1( coord + vec3( 0.0, 0.0, step ) );
+                        return normalize( vec3( x, y, z ) );
+                    }
+                    void main(){
+                        vec3 rayDir = normalize( vDirection );
+                        vec2 bounds = hitBox( vOrigin, rayDir );
+                        if ( bounds.x > bounds.y ) discard;
+                        bounds.x = max( bounds.x, 0.0 );
+                        vec3 p = vOrigin + bounds.x * rayDir;
+                        vec3 inc = 1.0 / abs( rayDir );
+                        float delta = min( inc.x, min( inc.y, inc.z ) );
+                        delta /= steps;
+                        for ( float t = bounds.x; t < bounds.y; t += delta ) {
+                            float d = sample1( p + 0.5 );
+                            if ( d > threshold ) {
+                                color.rgb = normal( p + 0.5 ) * 0.5 + ( p * 1.5 + 0.25 );
+                                color.a = 1.;
+                                break;
+                            }
+                            p += rayDir * delta;
+                        }
+                        if ( color.a == 0.0 ) discard;
+                    }
+                `;
 
-    struct PointLight {
-    vec3 position;
-    vec3 color;
-    };
-    uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
-
-    void main() {
-    vec4 addedLights = vec4(0.1, 0.1, 0.1, 1.0);
-    for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-        vec3 adjustedLight = pointLights[l].position + cameraPosition;
-        vec3 lightDirection = normalize(vPos - adjustedLight);
-        addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
-    }
-    gl_FragColor = addedLights;//mix(vec4(diffuse.x, diffuse.y, diffuse.z, 1.0), addedLights, addedLights);
-    }
-`;
-
-const fragmentShader2 = `
-    uniform vec2 u_resolution;
-    uniform vec2 u_mouse;
-    uniform float u_time;
-
-    uniform vec3 diffuse;
-    varying vec3 vPos;
-    varying vec3 vNormal;
-
-    struct PointLight {
-    vec3 position;
-    vec3 color;
-    };
-    uniform PointLight pointLights[ NUM_POINT_LIGHTS ];
-
-    float random (in vec2 st) {
-        return fract(sin(dot(st.xy,
-                            vec2(12.9898,78.233)))
-                    * 43758.5453123);
-    }
-
-    float noise(vec2 st) {
-        vec2 i = floor(u_mouse.x*st);
-        vec2 f = fract(u_mouse.x*110.5*st);
-        vec2 u = f*f*(3.0-2.0*f);
-        return mix( mix( random( i + vec2(0.0,0.0) ),
-                        random( i + vec2(1.0,0.0) ), u.x),
-                    mix( random( i + vec2(0.0,1.0) ),
-                        random( i + vec2(1.0,1.0) ), u.x), u.y);
-    }
-
-    mat2 rotate2d(float angle){
-        return mat2(cos(angle),-sin(angle),
-                    sin(angle),cos(angle));
-    }
-
-    float lines(in vec2 pos, float b){
-        float scale = 10.0;
-        pos *= scale;
-        return smoothstep(0.0,
-                        .5+b*.5,
-                        abs((sin(pos.x*3.1415)+b*2.0))*.5);
-    }
-
-    void main() {
-        vec4 addedLights = vec4(0.1, 0.1, 0.1, 1.0);
-        for(int l = 0; l < NUM_POINT_LIGHTS; l++) {
-            vec3 adjustedLight = pointLights[l].position + cameraPosition;
-            vec3 lightDirection = normalize(vPos - adjustedLight);
-            addedLights.rgb += clamp(dot(-lightDirection, vNormal), 0.0, 1.0) * pointLights[l].color;
-        }
-
-        vec2 st = gl_FragCoord.xy/u_resolution.xy;
-        st.y *= u_resolution.y/u_resolution.x;
-
-        vec2 pos = st.yx*vec2(10.,3.);
-
-        float pattern = pos.x;
-
-        // Add noise
-        pos = rotate2d( noise(pos) ) * pos;
-
-        // Draw lines
-        pattern = lines(pos,.5);
-
-        gl_FragColor = vec4(vec3(addedLights * pattern),1.0);
-    }
-`;
 
 const vertexShader3 = `
     void main() {
@@ -201,6 +178,7 @@ const fragmentShader3 = `
     let currPosition = 0;
 
     let camera, scene, renderer, water;
+
     let room, room2, room3, room4;
     let pointLight, pointLight2;
     const radius = 0.08;   
@@ -212,10 +190,11 @@ const fragmentShader3 = `
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
-    var uniforms;
     var pixel_resolution = 2;
     const groupLights = new THREE.Group();
     const spheres = [];
+
+    let direction = 1;
 
     const params = {
         color: '#ffffff',
@@ -309,25 +288,7 @@ const fragmentShader3 = `
         pointLight.add(pointLight5);
 
         scene.add(pointLight)
-        
-        var uniforms = THREE.UniformsUtils.merge([
-            THREE.UniformsLib['lights'],
-            { diffuse: { type: 'c', value: new THREE.Color(0xff00ff) } }
-        ]);
-        var vertexShader = vertexShader;
-        var fragmentShader = fragmentShader;
-        let material2 = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            vertexShader: vertexShader,
-            fragmentShader: fragmentShader,
-            lights: true
-        });
 
-        var geometry2 = new THREE.SphereGeometry( 6, 12, 60 );
-        let mesh = new THREE.Mesh(geometry2, material2);
-        mesh.rotation.x = - Math.PI / 2;
-        room.position.y = 10;
-        //scene.add(mesh);
 
         // water
         
@@ -346,29 +307,74 @@ const fragmentShader3 = `
         //scene.add( water );
 
         // ROOM2
+        // Texture
 
-        let uniforms2 = THREE.UniformsUtils.merge([
-            THREE.UniformsLib['lights'],
-            { diffuse: { type: 'c', value: new THREE.Color(0xff00ff) },
-            u_time: {type: 'f', value: 0.2},
-            u_resolution: {type: 'v2', value: new THREE.Vector2()},
-            u_mouse: {type: 'v2', value: new THREE.Vector2()}
-         }
-        ]);
-        
-        var fragmentShader2 = fragmentShader2;
-        let material3 = new THREE.ShaderMaterial({
-            uniforms: uniforms2,
-            fragmentShader: fragmentShader2,
-            vertexShader: vertexShader,
-            lights: true
+        const size = 128;
+        const data = new Uint8Array( size * size * size );
+
+        let i = 0;
+        const perlin = new ImprovedNoise();
+        const vector = new THREE.Vector3();
+
+        for ( let z = 0; z < size; z ++ ) {
+
+            for ( let y = 0; y < size; y ++ ) {
+
+                for ( let x = 0; x < size; x ++ ) {
+
+                    vector.set( x, y, z ).divideScalar( size );
+
+                    const d = perlin.noise( vector.x * 6.5, vector.y * 6.5, vector.z * 6.5 );
+
+                    data[ i ++ ] = d * 128 + 128;
+
+                }
+
+            }
+
+        }
+
+        const texture = new THREE.Data3DTexture( data, size, size, size );
+        texture.format = THREE.RedFormat;
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.unpackAlignment = 1;
+        texture.needsUpdate = true;
+
+
+
+        var uniforms = {diffuse: { type: 'c', value: new THREE.Color(0xfffff) }, u_time: {type: 'f', value: 0.2}, u_resolution: { type: 'v2', value: new THREE.Vector2() }, u_mouse: {type: "v2", value: new THREE.Vector2()}};
+
+
+        let materialww = new THREE.MeshBasicMaterial({
+          color: 0xff0000, // red
         });
 
-        var geometry5 = new THREE.PlaneGeometry( 30, 30, 30 );
-        let mesh2 = new THREE.Mesh(geometry5, material3);
-        mesh2.position.y = 10;
-        mesh2.position.x = 50;
-        scene.add(mesh2);
+        const geometryp = new THREE.BoxGeometry( 1, 1, 1 );
+        const material = new THREE.RawShaderMaterial( {
+            glslVersion: THREE.GLSL3,
+            uniforms: {
+                map: { value: texture },
+                cameraPos: { value: new THREE.Vector3() },
+                threshold: { value: 0.01 },
+                steps: { value: 200 }
+            },
+            vertexShader,
+            fragmentShader,
+            side: THREE.BackSide,
+        } );
+
+        let mesh = new THREE.Mesh( geometryp, material );
+        mesh.position.y = 10;
+        mesh.position.x = 50;
+
+        scene.add( mesh );
+
+        mesh.scale.x = 40; // SCALE
+        mesh.scale.y = 40; // SCALE
+        mesh.scale.z = 40; // SCALE
+
+ 
 
         // ROOM3
 
@@ -388,9 +394,9 @@ const fragmentShader3 = `
 
         var geometry3= new THREE.PlaneGeometry( 30, 30, 30 );
 
-        var material4 = new THREE.ShaderMaterial({ uniforms3, vertexShader3, fragmentShader3, side: THREE.DoubleSide });
+        var material4 = new THREE.ShaderMaterial({ uniforms: uniforms3, vertexShader: vertexShader3, fragmentShader: fragmentShader3, side: THREE.DoubleSide });
         
-        let screen = new THREE.Mesh( geometry3, material4 );
+        let screen = new THREE.Mesh( geometry3, materialww );
         screen.position.set(0, 60 , 0);
 
         scene.add( screen );
@@ -452,9 +458,10 @@ const fragmentShader3 = `
         }
 
        
-        renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvasRef.current });
+        renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
 
-        renderer.setSize( window.innerWidth/1.5, window.innerHeight/1.5 );
+        renderer.setSize(window.innerWidth/1.2, window.innerHeight/1.2);
+
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.BasicShadowMap;
 
@@ -472,10 +479,10 @@ const fragmentShader3 = `
 
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
-            uniforms2.u_resolution.value.x = renderer.domElement.width;
-            uniforms2.u_resolution.value.y = renderer.domElement.height;
             renderer.setSize( window.innerWidth/1.5, window.innerHeight/1.5 );
 
+            uniforms.u_resolution.value.x = renderer.domElement.width;
+            uniforms.u_resolution.value.y = renderer.domElement.height;
         }
 
         function onMouseMove( event ) {
@@ -483,10 +490,10 @@ const fragmentShader3 = `
             mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
             mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-            /*uniforms2.u_mouse.value.x = ( event.clientX / window.innerWidth );
-            uniforms2.u_mouse.value.y = ( 1-(event.clientY) / window.innerHeight);
+            uniforms.u_mouse.value.x = ( event.clientX / window.innerWidth );
+            uniforms.u_mouse.value.y = ( 1-(event.clientY) / window.innerHeight);
             uniforms3.u_mouse.value.x = ( event.clientX / window.innerWidth );
-            uniforms3.u_mouse.value.y = ( 1-(event.clientY) / window.innerHeight);*/
+            uniforms3.u_mouse.value.y = ( 1-(event.clientY) / window.innerHeight);
 
         }
 
@@ -508,16 +515,28 @@ const fragmentShader3 = `
 
             requestAnimationFrame( animate );
             TWEEN.update();
+            mesh.material.uniforms.cameraPos.value.copy( camera.position );
             render();
 
         }
 
         function render() {
-            uniforms2.u_resolution.value.x = window.innerWidth;
-            uniforms2.u_resolution.value.y = window.innerHeight;
-            uniforms3.u_resolution.value.x = window.innerWidth;
-            uniforms3.u_resolution.value.y = window.innerHeight;
-            uniforms2.u_time.value += 0.01;
+
+            
+
+            material.uniforms.threshold.value  += direction * 0.01; // increment or decrement by 0.01 based on direction
+              if (material.uniforms.threshold.value  >= 0.8) {
+                direction = -1; // switch direction to decreasing when value reaches 1
+              } else if (material.uniforms.threshold.value  <= 0) {
+                direction = 1; // switch direction to increasing when value reaches 0
+              }
+
+
+            uniforms.u_resolution.value.x = canvas.innerWidth;
+            uniforms.u_resolution.value.y = canvas.innerHeight;
+            uniforms3.u_resolution.value.x = canvas.innerWidth;
+            uniforms3.u_resolution.value.y = canvas.innerHeight;
+            uniforms.u_time.value += 0.01;
             uniforms3.u_time.value += 0.01;
 
             var time = Date.now() * 0.0005;
@@ -571,12 +590,10 @@ const fragmentShader3 = `
                         INTERSECTED = intersects[ 0 ].object.parent;
                         INTERSECTED.color.setHex( color );
                         INTERSECTED.intensity = 0.5
-
                     }
 
 
                     if ( INTERSECTEDMAT != intersects[ 0 ].object ) {
-
                         INTERSECTEDMAT = intersects[ 0 ].object;
                         INTERSECTEDMAT.material.color.setHex( color );
                     }
@@ -592,17 +609,6 @@ const fragmentShader3 = `
             pointLight2.color.setHSL(lightIntensity, 1.0, 0.5);
 
             // Room4 render
-
-                for (var i2 = 0; i2 < groupLights.children.length; i2++) 
-            {
-                //console.log(groupLights.children[i].children)
-                //groupLights.children[i2].position.y =Math.sin( time*0.00006 ) + getRandomArbitrary(50,80);
-                //groupLights.children[i].position.x = Math.cos( time*0.6 )*0.05;
-
-                /*groupLights.children[i2].position.x = getRandomArbitrary(40,70) - 5;
-                groupLights.children[i2].position.y = getRandomArbitrary(50,80) - 5;
-                groupLights.children[i2].position.z = getRandomArbitrary(-10,30) - 5;*/
-            }
 
             renderer.render( scene, camera );
 
@@ -655,7 +661,7 @@ const fragmentShader3 = `
       <div className={styles.container}> 
         <h2 className={styles.title} >3js Rooms</h2>
         <p className={styles.text} >Three.js and GLSL Shader project for the course of CCI - Coding One: Advanced Creative Coding. Use dat.gui to visit the rooms and interact with the objects in them.</p>
-        <p className={styles.text} >Use arrow keys to navigate between</p>
+        <p className={styles.text} >Use arrow keys to navigate between rooms.</p>
 
         <h6 className={styles.text}><a style={{color:"wheat"}} href="https://github.com/melismeric/UAL-CodingOne/tree/main/3js/Rooms">Github</a></h6>
         <h6 className={styles.text}><a style={{color:"wheat"}} href="https://mimicproject.com/code/35ba7369-cd2b-a6c9-1908-a5428e14f325">MIMIC</a></h6>

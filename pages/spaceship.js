@@ -122,7 +122,7 @@ const fragmentShader2 = `
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    let scene,camera, renderer, flash, room, rain, rainGeo, rainCount = 15000, uniforms, spaceShip;
+    let scene,camera, renderer, flash, room, uniforms, spaceShip;
     var pixel_resolution = 2;
     const clock = new THREE.Clock();
     const mouse = new THREE.Vector2();
@@ -164,7 +164,7 @@ const fragmentShader2 = `
         scene.add(flash);
 
         uniformsScreen = {time: { type: 'f', value: 1.0 }, resolution: { type: 'v2', value: new THREE.Vector2() }, mouse: {type: "v2", value: new THREE.Vector2()}};
-        var material11 = new THREE.ShaderMaterial({ uniformsScreen, vertexShader2, fragmentShader2});
+        var material11 = new THREE.ShaderMaterial({  uniforms:uniformsScreen, vertexShader:vertexShader2, fragmentShader:fragmentShader2});
         
         const geometry1 = new THREE.BoxGeometry(1200, 500, 500 );
         screen = new THREE.Mesh( geometry1, material11 );
@@ -243,31 +243,33 @@ const fragmentShader2 = `
         controls.target.set(0, 50, 0 );
         controls.update();
 
-        // Create a rain texture
+        // RAIN
         const loader = new THREE.TextureLoader();
-         rainGeo = new THREE.BufferGeometry();
-         rainGeo.vertices = [];
-          for(let i=0;i<rainCount;i++) {
-              let rainDrop = new THREE.Vector3(
-                  Math.random() * 800 - 500,
-                  Math.random() * 800 + 200, //- 850,
-                  Math.random() * 800 - 500
-              );
-              rainDrop.velocity = {};
-              rainDrop.velocity = 0;
-              rainGeo.vertices.push(rainDrop);
-          }
-          let rainMaterial = new THREE.PointsMaterial({
-              color: 0xaaaaaa,
-              size: 15,
-              transparent: true
-          });
-          rain = new THREE.Points(rainGeo,rainMaterial);
-          scene.add(rain);
 
-        
+
+const rainCount = 10000;
+const rainGeo = new THREE.BufferGeometry();
+const rainDropPositions = new Float32Array(rainCount * 3);
+const rainDropVelocities = new Array(rainCount).fill().map(() => new THREE.Vector3(0, -10, 0));
+
+for (let i = 0; i < rainCount * 3; i += 3) {
+  rainDropPositions[i] = Math.random() * 800 - 500;
+  rainDropPositions[i + 1] = Math.random() * 800 + 200;
+  rainDropPositions[i + 2] = Math.random() * 800 - 500;
+}
+
+rainGeo.setAttribute('position', new THREE.BufferAttribute(rainDropPositions, 3));
+const rainMaterial = new THREE.PointsMaterial({
+  color: 0xaaaaaa,
+  size: 1,
+  transparent: true
+});
+const rain = new THREE.Points(rainGeo, rainMaterial);
+scene.add(rain);
+
+
         loader.load("/textures/cloud.png", function(texture){
-        let cloudGeo = new THREE.SphereBufferGeometry(200,500);
+        let cloudGeo = new THREE.SphereGeometry(200,500);
         let cloudMaterial = new THREE.MeshLambertMaterial({
             map: texture,
             transparent: true
@@ -285,20 +287,42 @@ const fragmentShader2 = `
             cloud.rotation.z = Math.random()*360;
             cloud.material.opacity = 0.6;
             cloudParticles.add(cloud);
-            
+
         }
         scene.add(cloudParticles);
 
-        // GUI
-        var props = {
-            seeClouds:false,
-        };
 
-        
-
-  
         });
-    
+
+function animateRain() {
+  const positions = rainGeo.attributes.position.array;
+
+  for (let i = 0; i < rainCount; i++) {
+    const x = positions[i * 3];
+    const y = positions[i * 3 + 1];
+    const z = positions[i * 3 + 2];
+
+    rainDropVelocities[i].y -= 0.1;
+
+    const rainDropPosition = new THREE.Vector3(x, y, z);
+    rainDropPosition.add(rainDropVelocities[i]);
+
+    if (rainDropPosition.y < -200) {
+      rainDropPosition.set(
+        Math.random() * 800 - 500,
+        Math.random() * 800 + 200,
+        Math.random() * 800 - 500
+      );
+      rainDropVelocities[i].y = -10;
+    }
+
+    positions[i * 3] = rainDropPosition.x;
+    positions[i * 3 + 1] = rainDropPosition.y;
+    positions[i * 3 + 2] = rainDropPosition.z;
+  }
+
+  rainGeo.attributes.position.needsUpdate = true;
+}
 
 
     function animate() {
@@ -338,16 +362,7 @@ const fragmentShader2 = `
             cloudParticles.children[i].rotation.z -=0.002;
         }
 
-                     rainGeo.vertices.forEach(p => {
-                            p.velocity -= 0.1 + Math.random() * 0.1;
-                            p.y += p.velocity;
-                            if (p.y < -200) {
-                                p.y = 200;
-                                p.velocity = 0;
-                            }
-                        });
-                        rainGeo.verticesNeedUpdate = true;
-                        rain.rotation.y +=0.002;
+
 
         var time = Date.now() * 0.0005;
 
@@ -387,7 +402,7 @@ const fragmentShader2 = `
 
         if ( seeClouds && screen.position.y <= 100)
         screen.position.y +=1;
-        
+  animateRain();
         renderer.render(scene, camera);
         requestAnimationFrame(animate);
     }
@@ -528,7 +543,6 @@ const fragmentShader2 = `
 
         // custom distance material
         const distanceMaterial = new THREE.MeshDistanceMaterial( {
-            alphaMap: customMaterial.alphaMap,
             alphaTest: customMaterial.alphaTest
         } );
         sphere.customDistanceMaterial = distanceMaterial;

@@ -21,11 +21,10 @@ export default function Home() {
 
           <Row> 
             <Col>
-             <a href="/picstape">
-                <Image alt="picstape" width={320} height={320} className={styles.img} src="/home/picstape.gif"/>
+             <a href="/musicartworks">
+                <Image alt="picstape" width={320} height={320} className={styles.img} src="/home/rhino.gif"/>
              </a>
-             <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
-             <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
+             <figcaption className={styles.caption} >Music Art with AI</figcaption>
              <br/>
               <a href="/intpaint">
                 <Image alt="intpaint" width={320} height={320} className={styles.img} src="/home/intpaint.png"/>
@@ -60,12 +59,12 @@ export default function Home() {
             </Col>
 
             <Col >
-              <a href="/ganflowers">
-                <Image alt="flower" width={320} height={320} className={styles.img} src="/home/flower.gif"/>
-              </a>
-               <figcaption className={styles.caption}>AI Flowers</figcaption>
-               <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
-               <br/>
+            <a href="/picstape">
+                <Image alt="picstape" width={320} height={320} className={styles.img} src="/home/picstape.gif"/>
+             </a>
+             <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
+             <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
+             <br/>
                 <a href="/boid">
                   <Image alt="boid"  width={320} height={320} className={styles.img} src="/home/boid.gif"/>
               </a>
@@ -99,12 +98,12 @@ export default function Home() {
             </Col>
 
             <Col>
-              <a href="/wetmixer">
-                <Image alt="wtmxer" width={320} height={320} className={styles.img} src="/home/wtmxer.gif"/>
+                          <a href="/ganflowers">
+                <Image alt="flower" width={320} height={320} className={styles.img} src="/home/flower.gif"/>
               </a>
-              <figcaption className={styles.caption}>Wetmixer</figcaption>
-              <figcaption className={styles.caption}>CCI Physical Computing Course Project 2021</figcaption>
-              <br/>
+               <figcaption className={styles.caption}>AI Flowers</figcaption>
+               <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
+               <br/>
               <a href="/touchyfeely">
                 <Image alt="img" width={320} height={320} className={styles.img} src="/home/image.png"/>
               </a>
@@ -138,6 +137,12 @@ export default function Home() {
             </Col>
 
             <Col>
+              <a href="/wetmixer">
+                <Image alt="wtmxer" width={320} height={320} className={styles.img} src="/home/wtmxer.gif"/>
+              </a>
+              <figcaption className={styles.caption}>Wetmixer</figcaption>
+              <figcaption className={styles.caption}>CCI Physical Computing Course Project 2021</figcaption>
+              <br/>
               <a href="/spaceship">
                 <Image alt="space" width={320} height={320} className={styles.img} src="/home/space.gif"/>
               </a>
