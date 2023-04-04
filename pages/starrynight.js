@@ -6,8 +6,6 @@ import { useRef, useEffect } from "react";
 import Footer from '../components/Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import {Helmet} from "react-helmet";
-
 
 export default function Home() {
 
