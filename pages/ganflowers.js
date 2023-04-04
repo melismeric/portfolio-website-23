@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Project.module.css';
 import Header from '../components/Header'
-import Image from 'next/image'
+import { Image } from 'cloudinary-react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import Row from 'react-bootstrap/Row';
@@ -30,23 +30,23 @@ export default function Home() {
 
         <Row className="justify-content-center">
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower10.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower2.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626213/flower_e9kygj.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625849/flower10_nsipqt.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625893/flower2_kr4spy.gif"/>
 
           </Col>
 
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower3.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower4.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower5.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625787/flower3_aabciq.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625816/flower4_fkojx8.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625823/flower5_xwcvkq.gif"/>
 
           </Col>
 
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower6.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower7.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="/src/flower9.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625829/flower6_yrgyop.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625835/flower7_kpmmq2.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625846/flower9_lda9nj.gif"/>
 
           </Col>
         </Row>
