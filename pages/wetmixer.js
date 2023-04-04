@@ -23,7 +23,7 @@ export default function Home() {
 
       <div className={styles.container}>
 
-        <img src="/home/wtmxer.gif" alt="abc" height="auto" width="100%" id="image-section"/>
+        <img src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626262/wtmxer_k25ecn.gif" alt="abc" height="auto" width="100%" id="image-section"/>
 
   
         <h2 className={styles.title} >WETMIXER</h2>
