@@ -22,7 +22,7 @@ export default function Home() {
           <Row> 
             <Col>
              <a href="/musicartworks">
-                <Image alt="picstape" width={320} height={320} className={styles.img} src="/home/rhino.gif"/>
+                <Image alt="rhino" width={320} height={320} className={styles.img} src="/home/rhino.gif"/>
              </a>
              <figcaption className={styles.caption} >Music Art with AI</figcaption>
              <br/>

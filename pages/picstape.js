@@ -35,11 +35,11 @@ export default function Home() {
       
       <Carousel className={styles.videoContainer}>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/R2pufaXqQZc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/TUmbndoxrEo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>        </div>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/R2pufaXqQZc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/i3s6jjDFfUQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>        </div>
+        <div>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/DLE3Qntk2tg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>        </div>
         <div>
           <iframe width="100%" height="400px" src="https://www.youtube.com/embed/R2pufaXqQZc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
