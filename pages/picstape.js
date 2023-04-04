@@ -20,11 +20,16 @@ export default function Home() {
       <Header/>
       <main>
       <div className={styles.container}> 
-        <h2 className={styles.title} >Spotify Playlist To Images [Picstape]</h2>
+        <h2 className={styles.title} >Picstape - Mood-Based Image Generation for Spotify Playlists</h2>
         <h6 className={styles.text}>Creative Computing MSc Final Project - 2022</h6>
 
-        <p className={styles.text}>A Playlist Visualization Tool Based on Mood Built on VQGAN-CLIP</p>
-        <p className={styles.text}>I developed a custom software called Pixtape for mood-based image generation built upon VQGAN-CLIP. Pixtape takes Spotify playlist URLs as input and generates a text prompt for each song in the playlist including the mood and color of the songs. Multi-modal mood classification is used with neural networks to predict the mood for each song along with a mood map based on Russell's mood model and Last.fm user-generated tags. The color is calculated by mapping audio features to RGB and HSV codes. The images are iteratively created for each song in the playlist, depicting the mood by using colors and abstract representations of the given text using VQGAN-CLIP. These images are then used to create a video to visualize the playlist. </p>
+        <p className={styles.text}>Pixtape is a custom software that I developed for mood-based image generation, built upon the VQGAN-CLIP technology. The software takes Spotify playlist URLs as input and generates a text prompt for each song in the playlist, including the mood and color of the songs.</p>
+        <p className={styles.text}>To predict the mood for each song, I used multi-modal mood classification with neural networks, along with a mood map based on Russell's mood model and Last.fm user-generated tags. The color is calculated by mapping audio features to RGB and HSV codes.</p>
+        <p className={styles.text}>Using this data, the software creates iteratively generated images for each song in the playlist, depicting the mood by using colors and abstract representations of the given text. VQGAN-CLIP is used to refine the visual elements and add a dynamic, textured quality to each image.</p>
+        <p className={styles.text}>The final output is a video that visualizes the playlist, bringing the music to life with visuals that accurately represent the mood and color of each song. With Pixtape, I am able to create a cohesive and immersive experience for listeners, and showcase my skills in using cutting-edge technology to create beautiful, dynamic art.</p>
+
+
+
         <h6 className={styles.text}><a style={{color:"wheat"}} href="https://colab.research.google.com/drive/11b-NGMrYnOxRLsEd-ts6hxk0vrSbeS96">Colab Notebook</a></h6>
       
       

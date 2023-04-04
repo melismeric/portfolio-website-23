@@ -14,157 +14,123 @@ import { ImprovedNoise } from 'three/addons/math/ImprovedNoise.js';
 export default function Home() {
 
   // Define the vertex shader code
-            const vertexShader = /* glsl */`
-                    in vec3 position;
-                    uniform mat4 modelMatrix;
-                    uniform mat4 modelViewMatrix;
-                    uniform mat4 projectionMatrix;
-                    uniform vec3 cameraPos;
-                    out vec3 vOrigin;
-                    out vec3 vDirection;
-                    void main() {
-                        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                        vOrigin = vec3( inverse( modelMatrix ) * vec4( cameraPos, 1.0 ) ).xyz;
-                        vDirection = position - vOrigin;
-                        gl_Position = projectionMatrix * mvPosition;
-                    }
-                `;
+const vertexShader = /* glsl */`
+    in vec3 position;
+    uniform mat4 modelMatrix;
+    uniform mat4 modelViewMatrix;
+    uniform mat4 projectionMatrix;
+    uniform vec3 cameraPos;
+    out vec3 vOrigin;
+    out vec3 vDirection;
+    void main() {
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        vOrigin = vec3( inverse( modelMatrix ) * vec4( cameraPos, 1.0 ) ).xyz;
+        vDirection = position - vOrigin;
+        gl_Position = projectionMatrix * mvPosition;
+    }
+`;
 
-                const fragmentShader = /* glsl */`
-                    precision highp float;
-                    precision highp sampler3D;
-                    uniform mat4 modelViewMatrix;
-                    uniform mat4 projectionMatrix;
-                    in vec3 vOrigin;
-                    in vec3 vDirection;
-                    out vec4 color;
-                    uniform sampler3D map;
-                    uniform float threshold;
-                    uniform float steps;
-                    vec2 hitBox( vec3 orig, vec3 dir ) {
-                        const vec3 box_min = vec3( - 0.5 );
-                        const vec3 box_max = vec3( 0.5 );
-                        vec3 inv_dir = 1.0 / dir;
-                        vec3 tmin_tmp = ( box_min - orig ) * inv_dir;
-                        vec3 tmax_tmp = ( box_max - orig ) * inv_dir;
-                        vec3 tmin = min( tmin_tmp, tmax_tmp );
-                        vec3 tmax = max( tmin_tmp, tmax_tmp );
-                        float t0 = max( tmin.x, max( tmin.y, tmin.z ) );
-                        float t1 = min( tmax.x, min( tmax.y, tmax.z ) );
-                        return vec2( t0, t1 );
-                    }
-                    float sample1( vec3 p ) {
-                        return texture( map, p ).r;
-                    }
-                    #define epsilon .0001
-                    vec3 normal( vec3 coord ) {
-                        if ( coord.x < epsilon ) return vec3( 1.0, 0.0, 0.0 );
-                        if ( coord.y < epsilon ) return vec3( 0.0, 1.0, 0.0 );
-                        if ( coord.z < epsilon ) return vec3( 0.0, 0.0, 1.0 );
-                        if ( coord.x > 1.0 - epsilon ) return vec3( - 1.0, 0.0, 0.0 );
-                        if ( coord.y > 1.0 - epsilon ) return vec3( 0.0, - 1.0, 0.0 );
-                        if ( coord.z > 1.0 - epsilon ) return vec3( 0.0, 0.0, - 1.0 );
-                        float step = 0.01;
-                        float x = sample1( coord + vec3( - step, 0.0, 0.0 ) ) - sample1( coord + vec3( step, 0.0, 0.0 ) );
-                        float y = sample1( coord + vec3( 0.0, - step, 0.0 ) ) - sample1( coord + vec3( 0.0, step, 0.0 ) );
-                        float z = sample1( coord + vec3( 0.0, 0.0, - step ) ) - sample1( coord + vec3( 0.0, 0.0, step ) );
-                        return normalize( vec3( x, y, z ) );
-                    }
-                    void main(){
-                        vec3 rayDir = normalize( vDirection );
-                        vec2 bounds = hitBox( vOrigin, rayDir );
-                        if ( bounds.x > bounds.y ) discard;
-                        bounds.x = max( bounds.x, 0.0 );
-                        vec3 p = vOrigin + bounds.x * rayDir;
-                        vec3 inc = 1.0 / abs( rayDir );
-                        float delta = min( inc.x, min( inc.y, inc.z ) );
-                        delta /= steps;
-                        for ( float t = bounds.x; t < bounds.y; t += delta ) {
-                            float d = sample1( p + 0.5 );
-                            if ( d > threshold ) {
-                                color.rgb = normal( p + 0.5 ) * 0.5 + ( p * 1.5 + 0.25 );
-                                color.a = 1.;
-                                break;
-                            }
-                            p += rayDir * delta;
-                        }
-                        if ( color.a == 0.0 ) discard;
-                    }
-                `;
+const fragmentShader = /* glsl */`
+    precision highp float;
+    precision highp sampler3D;
+    uniform mat4 modelViewMatrix;
+    uniform mat4 projectionMatrix;
+    in vec3 vOrigin;
+    in vec3 vDirection;
+    out vec4 color;
+    uniform sampler3D map;
+    uniform float threshold;
+    uniform float steps;
+    vec2 hitBox( vec3 orig, vec3 dir ) {
+        const vec3 box_min = vec3( - 0.5 );
+        const vec3 box_max = vec3( 0.5 );
+        vec3 inv_dir = 1.0 / dir;
+        vec3 tmin_tmp = ( box_min - orig ) * inv_dir;
+        vec3 tmax_tmp = ( box_max - orig ) * inv_dir;
+        vec3 tmin = min( tmin_tmp, tmax_tmp );
+        vec3 tmax = max( tmin_tmp, tmax_tmp );
+        float t0 = max( tmin.x, max( tmin.y, tmin.z ) );
+        float t1 = min( tmax.x, min( tmax.y, tmax.z ) );
+        return vec2( t0, t1 );
+    }
+    float sample1( vec3 p ) {
+        return texture( map, p ).r;
+    }
+    #define epsilon .0001
+    vec3 normal( vec3 coord ) {
+        if ( coord.x < epsilon ) return vec3( 1.0, 0.0, 0.0 );
+        if ( coord.y < epsilon ) return vec3( 0.0, 1.0, 0.0 );
+        if ( coord.z < epsilon ) return vec3( 0.0, 0.0, 1.0 );
+        if ( coord.x > 1.0 - epsilon ) return vec3( - 1.0, 0.0, 0.0 );
+        if ( coord.y > 1.0 - epsilon ) return vec3( 0.0, - 1.0, 0.0 );
+        if ( coord.z > 1.0 - epsilon ) return vec3( 0.0, 0.0, - 1.0 );
+        float step = 0.01;
+        float x = sample1( coord + vec3( - step, 0.0, 0.0 ) ) - sample1( coord + vec3( step, 0.0, 0.0 ) );
+        float y = sample1( coord + vec3( 0.0, - step, 0.0 ) ) - sample1( coord + vec3( 0.0, step, 0.0 ) );
+        float z = sample1( coord + vec3( 0.0, 0.0, - step ) ) - sample1( coord + vec3( 0.0, 0.0, step ) );
+        return normalize( vec3( x, y, z ) );
+    }
+    void main(){
+        vec3 rayDir = normalize( vDirection );
+        vec2 bounds = hitBox( vOrigin, rayDir );
+        if ( bounds.x > bounds.y ) discard;
+        bounds.x = max( bounds.x, 0.0 );
+        vec3 p = vOrigin + bounds.x * rayDir;
+        vec3 inc = 1.0 / abs( rayDir );
+        float delta = min( inc.x, min( inc.y, inc.z ) );
+        delta /= steps;
+        for ( float t = bounds.x; t < bounds.y; t += delta ) {
+            float d = sample1( p + 0.5 );
+            if ( d > threshold ) {
+                color.rgb = normal( p + 0.5 ) * 0.5 + ( p * 1.5 + 0.25 );
+                color.a = 1.;
+                break;
+            }
+            p += rayDir * delta;
+        }
+        if ( color.a == 0.0 ) discard;
+    }
+`;
 
 
 const vertexShader3 = `
-    void main() {
-        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    varying vec2 vUv;
+
+    void main()
+    {
+        vUv = uv;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        gl_Position = projectionMatrix * mvPosition;
     }
 `;
 
 // Define the fragment shader code
 const fragmentShader3 = `
-    uniform vec2 u_resolution;
-    uniform vec2 u_mouse;
-    uniform float u_time;
+   
+            uniform float time;
 
+            uniform sampler2D colorTexture;
 
-    #define PI 3.1415926535897932384626433832795
+            varying vec2 vUv;
 
-    //this is a basic Pseudo Random Number Generator
-    float hash(in float n)
-    {
-        return fract(sin(n)*43758.5453123);
-    }
+            void main( void ) {
 
-    void main() {
+                vec2 position = - 1.0 + 2.0 * vUv;
 
-        //"squarified" coordinates 
-        vec2 xy = ( 2.0* gl_FragCoord.xy - u_resolution.xy ) / u_resolution.y ;
+                float a = atan( position.y, position.x );
+                float r = sqrt( dot( position, position ) );
 
-        //rotating light 
-        vec3 center = vec3(0.0, 1.0, cos(u_mouse.x*0.02) );
-        
-        //temporary vector
-        vec3 pp = vec3(0.000,0.000,0.000);
+                vec2 uv;
+                uv.x = cos( a ) / r;
+                uv.y = sin( a ) / r;
+                uv /= 10.0;
+                uv += time * 0.05;
 
-        //maximum distance of the surface to the center (try a value of 0.1 for example)
-        float length = 2.0;
-        
-        //this is the number of cells
-        const float count = 329.0;
-        
-        for( float i = 0.; i < count; i+=1. )
-        {
-            //random cell: create a point around the center
-            
-            //gets a 'random' angle around the center 
-            float an = sin( u_mouse.x * PI * 0.736 ) + hash( i ) * PI * 1.880;
-            
-            //gets a 'random' radius ( the 'spacing' between cells )
-            float ra = sqrt(hash( an )) * -0.5;
+                vec3 color = texture2D( colorTexture, uv ).rgb;
 
-            //creates a temporary 2d vector
-            vec2 p = vec2( center.x + sin( an ) * 5.368, center.z + cos( an ) * ra );
+                gl_FragColor = vec4( color * r * 1.5, 1.0 );
 
-            //finds the closest cell from the fragment's XY coords
-            
-            //compute the distance from this cell to the fragment's coordinates
-            float di = distance( xy, p );
-            
-            //and check if this length is inferior to the minimum length
-            length = min( length, di );
-            
-            //if this cell was the closest
-            if( length == di )
-            {
-                //stores the XY values of the cell and compute a 'Z' according to them
-                pp.xy = p;
-                pp.z = i / count * xy.x * xy.y;
             }
-        }
-
-
-        gl_FragColor = vec4( pp , 1. );
-
-    }
 
 `;
 
@@ -178,6 +144,8 @@ const fragmentShader3 = `
     let currPosition = 0;
 
     let camera, scene, renderer, water;
+
+    let clock = new THREE.Clock();
 
     let room, room2, room3, room4;
     let pointLight, pointLight2;
@@ -392,14 +360,35 @@ const fragmentShader3 = `
 
         scene.add( spotLight );
 
-        var geometry3= new THREE.PlaneGeometry( 30, 30, 30 );
+        const geometryCube = new THREE.BoxGeometry( 1,1,1 );
 
-        var material4 = new THREE.ShaderMaterial({ uniforms: uniforms3, vertexShader: vertexShader3, fragmentShader: fragmentShader3, side: THREE.DoubleSide });
-        
-        let screen = new THREE.Mesh( geometry3, materialww );
-        screen.position.set(0, 60 , 0);
+        let uniformsCube = {
+                    'time': { value: 1.0 },
+                    'colorTexture': { value: new THREE.TextureLoader().load( 'src/flower3.gif' ) }
+                };
 
-        scene.add( screen );
+        uniformsCube[ 'colorTexture' ].value.wrapS = uniformsCube[ 'colorTexture' ].value.wrapT = THREE.RepeatWrapping;
+
+
+        const materialCube = new THREE.ShaderMaterial( {
+
+            uniforms: uniformsCube,
+            vertexShader: vertexShader3,
+            fragmentShader: fragmentShader3
+
+        } );
+
+        const meshCube = new THREE.Mesh( geometryCube, materialCube );
+
+        meshCube.position.y = 60;
+        scene.add( meshCube );
+
+        meshCube.scale.x = 20; // SCALE
+        meshCube.scale.y = 20; // SCALE
+        meshCube.scale.z = 20; // SCALE
+
+    
+
 
         // Room4
 
@@ -522,7 +511,17 @@ const fragmentShader3 = `
 
         function render() {
 
+            const delta = clock.getDelta();
+
+            uniformsCube[ 'time' ].value = clock.elapsedTime*2;
+
+    
+
+                meshCube.rotation.y += delta * 0.5 * ( i % 2 ? 1 : - 1 );
+                meshCube.rotation.x += delta * 0.5 * ( i % 2 ? - 1 : 1 );
+
             
+
 
             material.uniforms.threshold.value  += direction * 0.01; // increment or decrement by 0.01 based on direction
               if (material.uniforms.threshold.value  >= 0.8) {

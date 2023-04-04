@@ -158,7 +158,7 @@ export default function Home() {
               <a href="/cleanwallet">
                 <Image alt="wallet" width={320} height={320} className={styles.img} src="/home/wallet.jpg"/>
               </a>
-              <figcaption className={styles.caption}>Safe Wallet</figcaption>
+              <figcaption className={styles.caption}>Clean Wallet</figcaption>
               <figcaption className={styles.caption}>SU Physical Computing Course Project 2020</figcaption>
               <br/>
               <a href="/openframeworks">

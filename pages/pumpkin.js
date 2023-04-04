@@ -31,8 +31,7 @@ export default function Home() {
               <h2 className={styles.title} >Dark detecting Circuit for Pumpkins</h2>
               <h6 className={styles.text}>In this project, I used a photoresistor, 10K ohm resistor, 2N3904 NPN transistor to build a dark detecting circuit. As shown in the circuit schematic below, when there is light, the particles of light hit the phototransistor, which enables the current to pass through the transistor, and with it the LED is switched off. When there is no light current freely passes through the transistor, lighting up the LED. Then I carved a pumpkin and placed it on the circuit. The pumpkin lights up when it is dark.</h6>
 
-      
-              <h6 className={styles.text}><a style={{color:"wheat"}} https="https://github.com/melismeric/Openframeworks-Projects/tree/main/polylines%20drawing%20app">Github Source Code</a></h6>
+              <h6 className={styles.text}><a style={{color:"wheat"}} href="https://github.com/melismeric/UAL-CCI-PCOMP/tree/main/portfolio_of_work/week3#lab-03-dark-detecting-circuit-for-your-pumpkins">Github Source Code</a></h6>
 
           </Col>
         </Row>

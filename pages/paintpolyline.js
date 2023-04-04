@@ -32,7 +32,7 @@ export default function Home() {
               <h6 className={styles.text}>This drawing app implemented using Openframeworks. The lines created using Polylines, ofDrawLine, and ofPoint. Line class consists of two points that define the beginning and end of the line. Two vectors called Lines and Drawnlines are defined. The draw() method connects two points of the line. In the mouseDragged() function, every time the mouse is dragged it saves the position of the mouse in the DrawnPoints vector. Then we take the current position of the mouse and compare it with all its previous positions. If the distance between the current position and the previous one is less than 30 pixels, we create a line between them. This method creates a nested effect on the lines we draw. Using ofxGui we put sliders to control the size and color of the line and color of the background.</h6>
 
       
-              <h6 className={styles.text}><a style={{color:"wheat"}} https="https://github.com/melismeric/Openframeworks-Projects/tree/main/polylines%20drawing%20app">Github Source Code</a></h6>
+              <h6 className={styles.text}><a style={{color:"wheat"}} href="https://github.com/melismeric/Openframeworks-Projects/tree/main/polylines%20drawing%20app">Github Source Code</a></h6>
 
           </Col>
         </Row>

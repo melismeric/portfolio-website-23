@@ -32,7 +32,7 @@ export default function Home() {
               <h6 className={styles.text}>This project was implemented using Openframeworks. There are a series of polylines affected by the movements of the camera. OfxCv and ofxOpencv add-ons are used. Using the pixels we get the difference of the image, and they construct the polylines. The polylines are going from left to right on the screen, and they're affected by the brightness. When there is a change in brightness, the brightness will send it to the y-coordinates of the polylines, and they will go upwards. When we stay still they will go back to normal. We need to use the get smoothed() function to smooth the lines and see them better.</h6>
 
       
-              <h6 className={styles.text}><a style={{color:"wheat"}} https="//github.com/melismeric/Openframeworks-Projects/tree/main/interactive_polyline">Github Source Code</a></h6>
+              <h6 className={styles.text}><a style={{color:"wheat"}} href="//github.com/melismeric/Openframeworks-Projects/tree/main/interactive_polyline">Github Source Code</a></h6>
 
           </Col>
         </Row>
