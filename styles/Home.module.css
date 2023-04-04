@@ -108,6 +108,12 @@
    border-style: inset;
 }
 
+.video:hover {
+   
+   border: 5px solid #ecb22c;
+   border-style: inset;
+}
+
 @font-face {
   font-family: 'Montserrat-Regular';
   src: url('/fonts/Montserrat-Regular.ttf') format('truetype');

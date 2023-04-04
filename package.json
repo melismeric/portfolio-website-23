@@ -9,6 +9,7 @@
     "@react-three/fiber": "^8.12.0",
     "babel-runtime": "^6.26.0",
     "bootstrap": "^5.2.3",
+    "cloudinary-react": "^1.8.1",
     "dat.gui": "^0.7.9",
     "gltf-loader": "^1.0.0",
     "next": "^13.2.4",
