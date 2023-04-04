@@ -6,7 +6,7 @@ import { useRef, useEffect } from "react";
 import Footer from '../components/Footer'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import ScriptTag from 'react-script-tag';
+import {Helmet} from "react-helmet";
 
 
 export default function Home() {
@@ -194,7 +194,10 @@ export default function Home() {
   return (
   <div style={{backgroundColor: "#000000"}}>
       <Header/>
-      <ScriptTag src="https://mimicproject.com/libs/maximilian.js" />
+
+     <Head>
+        <script src="https://mimicproject.com/libs/maximilian.js"></script>
+      </Head>
        <canvas style={{display: "flex", margin: "auto", flexDirection: "row", justifyContent: "center"}} ref={canvasRef} />
 
       <div className={styles.container} style={{marginBottom:"40px"}}> 
