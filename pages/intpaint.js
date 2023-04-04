@@ -105,13 +105,13 @@ const fragmentShader = `
      
       <Carousel className={styles.videoContainer }>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/3lNxoQRVv9Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/3lNxoQRVv9Y" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
         </div>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/io_zu4sApUc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/io_zu4sApUc" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
         </div>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/j5H8rU4BUKE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/j5H8rU4BUKE" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
         </div>
       </Carousel>
 

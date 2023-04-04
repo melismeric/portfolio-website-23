@@ -34,7 +34,7 @@ export default function Home() {
       </div>
 
       <div className={styles.videoContainer}>
-          <iframe width="60%" height="400px" src="https://www.youtube.com/embed/AfvHVy7qO-c" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="60%" height="400px" src="https://www.youtube.com/embed/AfvHVy7qO-c" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
       </div>
     
       

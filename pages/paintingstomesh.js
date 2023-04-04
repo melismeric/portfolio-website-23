@@ -23,7 +23,7 @@ export default function Home() {
         <Row>
           <Col xs={12} sm={6} md={6}>
             <div >
-              <iframe width="100%" height="440" src="https://www.youtube.com/embed/CKjLFnHvdBM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              <iframe width="100%" height="440" src="https://www.youtube.com/embed/CKjLFnHvdBM" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
             </div>
           </Col>
           <Col xs={12} sm={6} md={6}>
