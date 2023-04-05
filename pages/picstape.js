@@ -41,7 +41,7 @@ export default function Home() {
         <div>
           <iframe width="100%" height="400px" src="https://www.youtube.com/embed/DLE3Qntk2tg" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>        </div>
         <div>
-          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/R2pufaXqQZc" frameBorder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="400px" src="https://www.youtube.com/embed/YjsmCsk78JI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         </div>
       </Carousel>
       </div>
