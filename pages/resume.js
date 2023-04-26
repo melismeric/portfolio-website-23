@@ -15,7 +15,7 @@ export default function Home() {
   return (
   <div className={styles.page}>
       <Header/>
-        <iframe width="1200" height="1000" src='./src/melismeric%CC%A7_cv.pdf' />
+        <iframe width="1200" height="1000" src='./src/melismeric_cv.pdf' />
       <Footer/>
     </div>
   )
