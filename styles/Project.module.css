@@ -84,6 +84,30 @@
   height: 100%;
 }
 
+.hrText  {
+    position: relative;
+    border: none;
+    height: 1px;
+    background: #ecb22c;
+}
+
+.hrText::before {
+    content: attr(data-content);
+    display: inline-block;
+    background: #000;
+    font-weight: bold;
+    font-size: 1.85rem;
+    color: #ecb22c;
+    border-radius: 100rem;
+    border-color: #0000;
+    padding: 0.2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+      font-family: 'Montserrat-Regular'; 
+}
+
 
 
 
