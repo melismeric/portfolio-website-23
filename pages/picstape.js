@@ -83,7 +83,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <h4 className={styles.title} >Output Video</h4>
-            <video ref={videoRef} height="auto" width="150%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1682540925/video_3_szbljy.mp4" autoplay loop> </video>
+            <video ref={videoRef} height="auto" width="150%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1682540925/video_3_szbljy.mp4" autoplay loop controls> </video>
 
           </Col>
     </Row>
