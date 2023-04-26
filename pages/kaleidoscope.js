@@ -99,10 +99,7 @@ const fragmentShader = `
           onWindowResize();
           window.addEventListener('resize', onWindowResize, false);
           window.addEventListener('mousemove', onMouseMove, false);
-          
-  
-      
-  
+
       }
       function onWindowResize(event) {
           renderer.setSize(window.innerWidth/1.5, window.innerHeight/1.5);
