@@ -19,11 +19,7 @@ const params = {
   X: 7.7,
   Y: 1.0,
   Z: 6.9 ,
-  wireframe: false,
-  loadFile : function() {
-    document.getElementById('myInput').click();
-  }
-
+  volume: 0.5,
 };
 
 const initGui = async () => {
@@ -93,13 +89,17 @@ const vertexShader = `
 // Define the fragment shader code
 const fragmentShader = `
   varying vec3 normalWorldSpace;
-
+  uniform vec2 u_resolution;
+  uniform float u_time;
 
   void main() { 
       vec3 color = vec3(normalWorldSpace) + 0.5;
       float alpha = 1.0;
 
-      gl_FragColor = vec4( color, 1.0 );
+      vec3 color2 = vec3(0.);
+      color2 = vec3(normalWorldSpace.x,normalWorldSpace.y,abs(sin(u_time)));
+
+      gl_FragColor = vec4( color2, 1.0 );
   }
 `;
 
@@ -201,11 +201,13 @@ const fragmentShader = `
         const audioBuffer = await fetch("src/buyukev.mp3")
               .then(res => res.arrayBuffer())
               .then(ArrayBuffer => audioContext.decodeAudioData(ArrayBuffer));
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 0.0;
         defSource = audioContext.createBufferSource();
 
         defSource.buffer = audioBuffer;
 
-        defSource.connect(audioContext.destination);
+        defSource.connect(gainNode).connect(audioContext.destination);
         defSource.start();
 
         defAudioIsPlaying = true;
@@ -244,10 +246,13 @@ const fragmentShader = `
           blobX: {value: 7.0},
           blobY: {value: 1.0},
           blobZ: {value: 7.0},
+          u_time: {value: 0.0},
           u_data_arr: { value: null },
 
         };
       }
+
+      const gainNode2 = audioContext.createGain();
 
       async function initDef() {
           init();
@@ -255,7 +260,9 @@ const fragmentShader = `
           const bufferLength = analyserNodeDef.frequencyBinCount;
           dataArray = new Float32Array(bufferLength);
 
-          defSource.connect(analyserNodeDef);
+          gainNode2.gain.value = 0.5;
+
+          defSource.connect(gainNode2).connect(analyserNodeDef);
           analyserNodeDef.connect(audioContext.destination);
 
          if (gui === undefined) {
@@ -272,6 +279,9 @@ const fragmentShader = `
 
             gui.add({ pause: pauseDefAudio }, 'pause');
             gui.add({ play: playDefaultAudio }, 'play');
+            gui.add(params, 'volume', 0, 1)
+               .name("Volume")
+              .listen();
           }
 
           makeContents();
@@ -332,6 +342,8 @@ const fragmentShader = `
       }
 
       function animateDef(){
+
+        var time = Date.now() * 0.0005;
         requestAnimationFrame(animateDef);
         if(defAudioIsPlaying) analyserNodeDef.getFloatFrequencyData(dataArray);
 
@@ -340,6 +352,10 @@ const fragmentShader = `
         uniforms.blobX.value = params.X;
         uniforms.blobY.value = params.Y;
         uniforms.blobZ.value = params.Z;
+
+        uniforms.u_time.value += 0.01;
+
+        gainNode2.gain.value = params.volume;
 
         renderer.render(scene, camera);
       }
@@ -369,9 +385,8 @@ const fragmentShader = `
     <div style={{marginTop: "auto"}} className="d-grid gap-2 justify-content-md-center">
 
        {showButton && <Button variant="info" size="lg" id="startButton"><div  className={styles.btnText} >Play Default Sound </div></Button>}
-
-        {showCustomButton && <Button variant="info" size="lg" id="startCustomButton"><div className={styles.btnText} >Choose Your Sound</div></Button>}
-
+      {showCustomButton && <Button variant="info" size="lg" id="startCustomButton"><div className={styles.btnText} >Choose Your Sound</div></Button>}
+       {showButton && <h6 className={styles.text} style={{paddingTop: "20px"}}>Warning: This project contains sound. Please adjust your volume before proceeding.</h6>}
     </div>
        <canvas style={{display: "flex", margin: "auto", flexDirection: "row", justifyContent: "center"}} ref={canvasRef} />
 
