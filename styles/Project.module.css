@@ -8,6 +8,15 @@
   background-color: #000000;
 }
 
+.headerTitle {
+  text-decoration: none; 
+  font-family: 'Montserrat-Regular'; 
+  text-shadow: 1px 1px #cf4521; 
+  color:  #FFF8E6;
+  font-size: 35px;
+}
+
+
 .text {
   font-family: 'Montserrat-Regular'; 
   color:#FFF8E6 ;
@@ -106,6 +115,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
       font-family: 'Montserrat-Regular'; 
+}
+
+.centerContainer{
+    display: flex;
+    width: 100%;
+    max-width: 60%;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.btnText {
+  font-family: 'Montserrat-Regular'; 
+  color:#FFF8E6 ;
+  font-weight: bold;
 }
 
 
