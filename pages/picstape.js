@@ -59,12 +59,12 @@ export default function Home() {
 
 
 
-      <Image alt="picsprocess" width={1000} height={600} className={styles.img} style={{marginTop: "20px"}}  src="/src/picstape-process.png"/>
+      <img alt="picsprocess" height="auto" width="100%"  className={styles.img} style={{marginTop: "20px"}}  src="/src/picstape-process.png"/>
       
       <h4 className={styles.title} style={{marginTop: "10px"}} >Text Prompt Building Blocks</h4>
 
 
-      <Image alt="textcon" width={500} height={200} className={styles.img} style={{margin: "auto"}} src="/src/textcon.png"/>
+      <img alt="textcon"  height="auto" width="100%" className={styles.img} style={{margin: "auto"}} src="/src/textcon.png"/>
 
 
 
@@ -83,7 +83,7 @@ export default function Home() {
           </Col>
           <Col md={4}>
             <h4 className={styles.title} >Output Video</h4>
-            <video ref={videoRef} height="auto" width="150%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1682540925/video_3_szbljy.mp4" autoplay loop controls> </video>
+            <video ref={videoRef} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1682540925/video_3_szbljy.mp4" autoplay loop controls> </video>
 
           </Col>
     </Row>
