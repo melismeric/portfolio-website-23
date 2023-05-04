@@ -35,7 +35,7 @@ const vertexShader = `
   uniform float blobY;
   uniform float blobZ;
   
-  uniform float[64] u_data_arr;
+  uniform float u_data_arr[64];
   varying float x;
   varying float y;
   varying float z;
@@ -63,8 +63,8 @@ const vertexShader = `
     vUv = position;
     x = abs(position.x);
     y = abs(position.y);
-    float floor_x = round(x);
-    float floor_y = round(y);
+    float floor_x = floor(x + 0.5);
+    float floor_y = floor(y + 0.5);
     float x_multiplier = (32.0 - x) / 8.0;
     float y_multiplier = (32.0 - y) / 8.0;
 
@@ -133,6 +133,7 @@ const fragmentShader = `
       let uniforms;
 
       let animationTime = 1.0;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
 
       let audioContext = new AudioContext();
 
@@ -163,8 +164,15 @@ const fragmentShader = `
           const file = event.target.files[0];
           const reader = new FileReader();
           reader.onload = async (event) => {
-            buffer = await audioContext.decodeAudioData(event.target.result);
-            playAudio();
+         
+             buffer = await audioContext.decodeAudioData(
+                event.target.result,
+                (buffer) => {
+                  const source = audioContext.createBufferSource();
+
+                  playAudio();
+                }
+              );
 
           };
           reader.readAsArrayBuffer(file);
@@ -199,8 +207,16 @@ const fragmentShader = `
         toggleButtonCustom();
 
         const audioBuffer = await fetch("src/buyukev.mp3")
-              .then(res => res.arrayBuffer())
-              .then(ArrayBuffer => audioContext.decodeAudioData(ArrayBuffer));
+          .then((response) => response.arrayBuffer())
+          .then((arrayBuffer) =>
+            new Promise((resolve, reject) => {
+              audioContext.decodeAudioData(arrayBuffer, (buffer) => {
+                resolve(buffer);
+              }, (err) => {
+                reject(err);
+              });
+            })
+          );
         const gainNode = audioContext.createGain();
         gainNode.gain.value = 0.0;
         defSource = audioContext.createBufferSource();
