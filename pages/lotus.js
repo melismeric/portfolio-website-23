@@ -195,6 +195,9 @@ const fragmentShader = `
       }
 
       async function playDefaultAudio() {
+              toggleButton();
+        toggleButtonCustom();
+
         const audioBuffer = await fetch("src/buyukev.mp3")
               .then(res => res.arrayBuffer())
               .then(ArrayBuffer => audioContext.decodeAudioData(ArrayBuffer));
@@ -207,8 +210,7 @@ const fragmentShader = `
 
         defAudioIsPlaying = true;
         initDef();
-        toggleButton();
-        toggleButtonCustom();
+
       }
 
       function pauseDefAudio() {
