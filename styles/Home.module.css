@@ -100,6 +100,7 @@
 .img {
   width: 360px;
   block-size: fit-content;
+  height: auto;
 }
 
 .img:hover {
@@ -117,4 +118,15 @@
 @font-face {
   font-family: 'Montserrat-Regular';
   src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.containerSection:first-child {
+  display: flex;
+  align-items: flex-start; /* new */
+  margin-bottom: 25px;
+  flex-direction: column;
 }

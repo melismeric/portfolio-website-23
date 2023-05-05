@@ -30,10 +30,10 @@ export default function Home() {
       </Head>
 
       <Header/>
-      <main>
+      <main className={styles.container} >
 
-          <Row> 
-            <Col>
+          <Row > 
+            <Col className={styles.containerSection} >
              <a href="/musicartworks">
                 <Image alt="rhino" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626289/rhinoai_xfspjv.gif"/>
              </a>
@@ -72,7 +72,7 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col >
+            <Col className={styles.containerSection}>
             <a href="/picstape">
                 <video ref={videoRef3} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1680626845/picstape_rfmuyc.mp4" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
              </a>
@@ -111,8 +111,8 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col>
-                          <a href="/ganflowers">
+            <Col className={styles.containerSection}>
+              <a href="/ganflowers">
                 <Image alt="flower" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626213/flower_e9kygj.gif"/>
               </a>
                <figcaption className={styles.caption}>AI Flowers</figcaption>
@@ -150,7 +150,7 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col>
+            <Col className={styles.containerSection}>
               <a href="/wetmixer">
                 <Image alt="wtmxer" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626262/wtmxer_k25ecn.gif"/>
               </a>
