@@ -135,7 +135,6 @@ const fragmentShader = `
       let animationTime = 1.0;
       const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-
       let dataArray;
       let audioEle;
 
@@ -276,34 +275,33 @@ const fragmentShader = `
           makeContents();
           animateDef();
         }
+
         function animateDef(){
+          var time = Date.now() * 0.0005;
+          requestAnimationFrame(animateDef);
+          if(defAudioIsPlaying) analyserNodeDef.getFloatFrequencyData(dataArray);
 
-        var time = Date.now() * 0.0005;
-        requestAnimationFrame(animateDef);
-        if(defAudioIsPlaying) analyserNodeDef.getFloatFrequencyData(dataArray);
+          uniforms.u_data_arr.value = dataArray;
 
-        uniforms.u_data_arr.value = dataArray;
+          uniforms.blobX.value = params.X;
+          uniforms.blobY.value = params.Y;
+          uniforms.blobZ.value = params.Z;
 
-        uniforms.blobX.value = params.X;
-        uniforms.blobY.value = params.Y;
-        uniforms.blobZ.value = params.Z;
+          uniforms.u_time.value += 0.01;
 
-        uniforms.u_time.value += 0.01;
+          gainNode2.gain.value = params.volume;
 
-        gainNode2.gain.value = params.volume;
-
-        renderer.render(scene, camera);
-      }
+          renderer.render(scene, camera);
+        }
       });
 
-
-
+      // User sound
 
       startCustomButton.addEventListener( 'click', function(){
         let audioContext = new AudioContext();
         const analyserNode = audioContext.createAnalyser();
         loadAudio();
-        
+
       function loadAudio(file) {
         //audioContext = new AudioContext();
         const fileInput = document.createElement('input');
@@ -346,9 +344,6 @@ const fragmentShader = `
         audioIsPlaying = false;
       }
 
-      
-
-
       async function initCustom() {
           init();
 
@@ -377,9 +372,6 @@ const fragmentShader = `
           makeContents();
           animateCustom();
       }
-
-
-
 
       function animateCustom() {
         var time = Date.now() * 0.0005;
