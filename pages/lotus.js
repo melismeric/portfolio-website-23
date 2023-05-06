@@ -135,9 +135,6 @@ const fragmentShader = `
       let animationTime = 1.0;
       const AudioContext = window.AudioContext || window.webkitAudioContext;
 
-      let audioContext = new AudioContext();
-
-      const analyserNodeDef = audioContext.createAnalyser();
 
       let dataArray;
       let audioEle;
@@ -145,98 +142,6 @@ const fragmentShader = `
       let defAudioIsPlaying = false;
       let audioIsPlaying = false;
 
-
-
-      const startButton = document.getElementById( 'startButton' );
-      const startCustomButton = document.getElementById( 'startCustomButton' );
-
-      startButton.addEventListener( 'click', playDefaultAudio );
-      startCustomButton.addEventListener( 'click', loadAudio );
-
-
-      function loadAudio(file) {
-        //audioContext = new AudioContext();
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = 'audio/*';
-
-        fileInput.onchange = (event) => {
-          const file = event.target.files[0];
-          const reader = new FileReader();
-          reader.onload = async (event) => {
-         
-             buffer = await audioContext.decodeAudioData(
-                event.target.result,
-                (buffer) => {
-                  const source = audioContext.createBufferSource();
-
-                  playAudio();
-                }
-              );
-
-          };
-          reader.readAsArrayBuffer(file);
-        };
-        fileInput.click();
-      }
-
-      function startCustom(){
-        playAudio();
-        initCustom();
-      }
-
-      function playAudio() {
-       
-        source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
-        source.start();
-        audioIsPlaying = true;
-        initCustom();
-        toggleButton();
-        toggleButtonCustom();
-      }
-
-      function pauseAudio() {
-        source.stop();
-        audioIsPlaying = false;
-      }
-
-      async function playDefaultAudio() {
-              toggleButton();
-        toggleButtonCustom();
-
-        const audioBuffer = await fetch("src/buyukev.mp3")
-          .then((response) => response.arrayBuffer())
-          .then((arrayBuffer) =>
-            new Promise((resolve, reject) => {
-              audioContext.decodeAudioData(arrayBuffer, (buffer) => {
-                resolve(buffer);
-              }, (err) => {
-                reject(err);
-              });
-            })
-          );
-        const gainNode = audioContext.createGain();
-        gainNode.gain.value = 0.0;
-        defSource = audioContext.createBufferSource();
-
-        defSource.buffer = audioBuffer;
-
-        defSource.connect(gainNode).connect(audioContext.destination);
-        defSource.start();
-
-        defAudioIsPlaying = true;
-        initDef();
-
-      }
-
-      function pauseDefAudio() {
-        defSource.stop();
-        defAudioIsPlaying = false;
-      }
-
-      //init();
       function init(){
         renderer = new THREE.WebGLRenderer();
 
@@ -267,6 +172,74 @@ const fragmentShader = `
 
         };
       }
+
+      function makeContents() {
+        const geometry = new THREE.SphereGeometry(1, 128, 256);
+
+        const material = new THREE.ShaderMaterial({
+          uniforms,
+          vertexShader: vertexShader,
+          fragmentShader: fragmentShader
+        });
+
+        mesh = new THREE.Mesh(geometry, material);
+   
+        scene.add(mesh);
+      }
+
+      function onWindowResize(event) {
+        window.addEventListener("resize", function () {
+            const height = window.innerHeight;
+            renderer.setSize(window.innerWidth, height);
+            camera.aspect = window.innerWidth / height;
+            camera.updateProjectionMatrix();
+          });
+      }
+
+
+      const startButton = document.getElementById( 'startButton' );
+      const startCustomButton = document.getElementById( 'startCustomButton' );
+
+      startButton.addEventListener( 'click', function(){
+        
+        let audioContext = new AudioContext();
+        const analyserNodeDef = audioContext.createAnalyser();
+        playDefaultAudio();
+
+        async function playDefaultAudio() {
+          toggleButton();
+          toggleButtonCustom();
+
+          const audioBuffer = await fetch("src/noland.mp3")
+            .then((response) => response.arrayBuffer())
+            .then((arrayBuffer) =>
+              new Promise((resolve, reject) => {
+                audioContext.decodeAudioData(arrayBuffer, (buffer) => {
+                  resolve(buffer);
+                }, (err) => {
+                  reject(err);
+                });
+              })
+            );
+          const gainNode = audioContext.createGain();
+          gainNode.gain.value = 0.0;
+          defSource = audioContext.createBufferSource();
+
+          defSource.buffer = audioBuffer;
+
+          defSource.connect(gainNode).connect(audioContext.destination);
+          defSource.start();
+
+          defAudioIsPlaying = true;
+          initDef();
+
+        }
+
+        function pauseDefAudio() {
+          defSource.stop();
+          defAudioIsPlaying = false;
+        }
+
 
       const gainNode2 = audioContext.createGain();
 
@@ -302,9 +275,80 @@ const fragmentShader = `
 
           makeContents();
           animateDef();
+        }
+        function animateDef(){
+
+        var time = Date.now() * 0.0005;
+        requestAnimationFrame(animateDef);
+        if(defAudioIsPlaying) analyserNodeDef.getFloatFrequencyData(dataArray);
+
+        uniforms.u_data_arr.value = dataArray;
+
+        uniforms.blobX.value = params.X;
+        uniforms.blobY.value = params.Y;
+        uniforms.blobZ.value = params.Z;
+
+        uniforms.u_time.value += 0.01;
+
+        gainNode2.gain.value = params.volume;
+
+        renderer.render(scene, camera);
+      }
+      });
+
+
+
+
+      startCustomButton.addEventListener( 'click', function(){
+        let audioContext = new AudioContext();
+        const analyserNode = audioContext.createAnalyser();
+        loadAudio();
+        
+      function loadAudio(file) {
+        //audioContext = new AudioContext();
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'audio/*';
+
+        fileInput.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = async (event) => {
+         
+             buffer = await audioContext.decodeAudioData(
+                event.target.result,
+                (buffer) => {
+                  const source = audioContext.createBufferSource();
+                }
+              );
+            playAudio();
+
+          };
+          reader.readAsArrayBuffer(file);
+        };
+        fileInput.click();
       }
 
-      const analyserNode = audioContext.createAnalyser();
+      function playAudio() {
+       
+        source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+        source.start();
+        audioIsPlaying = true;
+        initCustom();
+        toggleButton();
+        toggleButtonCustom();
+      }
+
+      function pauseAudio() {
+        source.stop();
+        audioIsPlaying = false;
+      }
+
+      
+
+
       async function initCustom() {
           init();
 
@@ -334,49 +378,11 @@ const fragmentShader = `
           animateCustom();
       }
 
-      function makeContents() {
-        const geometry = new THREE.SphereGeometry(1, 128, 256);
 
-        const material = new THREE.ShaderMaterial({
-          uniforms,
-          vertexShader: vertexShader,
-          fragmentShader: fragmentShader
-        });
 
-        mesh = new THREE.Mesh(geometry, material);
-   
-        scene.add(mesh);
-      }
-
-      function onWindowResize(event) {
-        window.addEventListener("resize", function () {
-            const height = window.innerHeight;
-            renderer.setSize(window.innerWidth, height);
-            camera.aspect = window.innerWidth / height;
-            camera.updateProjectionMatrix();
-          });
-      }
-
-      function animateDef(){
-
-        var time = Date.now() * 0.0005;
-        requestAnimationFrame(animateDef);
-        if(defAudioIsPlaying) analyserNodeDef.getFloatFrequencyData(dataArray);
-
-        uniforms.u_data_arr.value = dataArray;
-
-        uniforms.blobX.value = params.X;
-        uniforms.blobY.value = params.Y;
-        uniforms.blobZ.value = params.Z;
-
-        uniforms.u_time.value += 0.01;
-
-        gainNode2.gain.value = params.volume;
-
-        renderer.render(scene, camera);
-      }
 
       function animateCustom() {
+        var time = Date.now() * 0.0005;
         requestAnimationFrame(animateCustom);
         if(audioIsPlaying) analyserNode.getFloatFrequencyData(dataArray);
 
@@ -386,8 +392,13 @@ const fragmentShader = `
         uniforms.blobY.value = params.Y;
         uniforms.blobZ.value = params.Z;
 
+        uniforms.u_time.value += 0.01;
+
         renderer.render(scene, camera);
       }
+
+      });
+
 
 
   }, []);
