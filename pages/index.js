@@ -10,17 +10,7 @@ import { Image } from 'cloudinary-react';
 import React, { useRef, useEffect } from 'react';
 
 export default function Home() {
-    const videoRef = useRef(null);
-    const videoRef2 = useRef(null);
-    const videoRef3 = useRef(null);
-    const videoRef4 = useRef(null);
 
-  useEffect(() => {
-    videoRef.current.play();
-    videoRef2.current.play();
-    videoRef3.current.play();
-    videoRef4.current.play();
-  }, []);
   return (
     
     <div className={styles.container}>
@@ -46,13 +36,13 @@ export default function Home() {
              <figcaption className={styles.caption} >CCI Course Project 2022</figcaption>
              <br/>
               <a href="/kaleidoscope">
-                <video ref={videoRef} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1680628152/Screen_Recording_2023-04-04_at_18.02.15_i1mpvn.mov" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+                <Image alt="kaleidoscope" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/73921336ea807c641abf71734d43d8fe549836e1-600x326.gif"/>
              </a>
              <figcaption className={styles.caption}>Kaleidoscope Shader</figcaption>
-             <figcaption className={styles.caption}>CCI Course Project 2021</figcaption>
+             <figcaption className={styles.caption}>CCI Course Project 2021</figcaption> 
              <br/>
              <a href="/starrynight">
-              <video ref={videoRef2} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1680628169/Screen_Recording_2023-04-04_at_18.01.44_ceuunj.mov" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+              <Image alt="starrynight" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/f1436e44368505e1105bd31d9f12d64d38c8dd4b-600x326.gif"/>
 
              </a>
              <figcaption className={styles.caption}>Interactive Starry Night</figcaption>
@@ -72,9 +62,9 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col className={styles.containerSection}>
+            <Col className={styles.containerSection}> 
             <a href="/picstape">
-                <video ref={videoRef3} height="auto" width="100%"  className={styles.img}  src="src/picstape_rfmuyc.mp4" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+              <Image alt="picstape" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif"/>
              </a>
              <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
              <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
@@ -181,8 +171,8 @@ export default function Home() {
               <figcaption className={styles.caption}>Clean Wallet</figcaption>
               <figcaption className={styles.caption}>SU Physical Computing Course Project 2020</figcaption>
               <br/>
-              <a href="/openframeworks">
-                <video ref={videoRef4} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1680628073/Screen_Recording_2023-04-04_at_18.01.02_elrjs2.mov" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+              <a href="/openframeworks"> 
+                <Image alt="openframeworks" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/0e25d78ca7a94a9a0f41c7f2b29b8d7559b3436d-600x447.gif"/>
 
               </a>
               <figcaption className={styles.caption}>Geometric Loops</figcaption>
