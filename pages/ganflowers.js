@@ -30,23 +30,23 @@ export default function Home() {
 
         <Row className="justify-content-center">
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626213/flower_e9kygj.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625849/flower10_nsipqt.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625893/flower2_kr4spy.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/c4395a9f3e7ecb48f1a441c9c34c83df088e5ffa-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/419af3a8bde05ff19ccd8319e8229cd3efd231ac-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/a503d6d1e140456ad66a2ecfedb8b4e5a6b56810-256x256.gif"/>
 
           </Col>
 
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625787/flower3_aabciq.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625816/flower4_fkojx8.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625823/flower5_xwcvkq.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/0eb35cf71c5b0cde3187f7272be8e3ddeb416f6f-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/453c07db409a83f0abf3064c6ec7f73a6c41e409-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/15a9a6c7755887d479e4bc6fc8de612e7783a193-256x256.gif"/>
 
           </Col>
 
           <Col xs={12} sm={6} md={4} className="text-center">
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625829/flower6_yrgyop.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625835/flower7_kpmmq2.gif"/>
-            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680625846/flower9_lda9nj.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/4dcc0df99a291a72750e3f175b871e56a688508a-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/b548f9a31a26b64b41f839028781b031ce1d5ede-256x256.gif"/>
+            <Image alt="flower" width={320} height={320} style={{paddingTop: "10px"}} src="https://cdn.sanity.io/images/cedgpqtk/production/33498cc5aa84c66839be5a1d3e6ac92845368dfd-256x256.gif"/>
 
           </Col>
         </Row>
