@@ -23,8 +23,7 @@ export default function Home() {
 
       <div className={styles.container}>
 
-        <img src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626262/wtmxer_k25ecn.gif" alt="abc" height="auto" width="100%" id="image-section"/>
-
+        <img src="https://cdn.sanity.io/images/cedgpqtk/production/34ce365eb3e77e87492560eca7dc87d209c80c2d-915x522.gif" alt="abc" height="auto" width="100%" id="image-section"/>
   
         <h2 className={styles.title} >WETMIXER</h2>
         <h6 className={styles.text}>Advanced Physical Computing Final Project - 2021</h6>
