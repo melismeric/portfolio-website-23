@@ -74,7 +74,7 @@ export default function Home() {
 
             <Col className={styles.containerSection}>
             <a href="/picstape">
-                <video ref={videoRef3} height="auto" width="100%"  className={styles.img}  src="https://res.cloudinary.com/dfn3uxsf6/video/upload/v1680626845/picstape_rfmuyc.mp4" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+                <video ref={videoRef3} height="auto" width="100%"  className={styles.img}  src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
              </a>
              <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
              <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
