@@ -12,13 +12,13 @@ import React, { useRef, useEffect } from 'react';
 export default function Home() {
     const videoRef = useRef(null);
     const videoRef2 = useRef(null);
-    const videoRef3 = useRef(null);
+    //const videoRef3 = useRef(null);
     const videoRef4 = useRef(null);
 
   useEffect(() => {
     videoRef.current.play();
     videoRef2.current.play();
-    videoRef3.current.play();
+    //videoRef3.current.play();
     videoRef4.current.play();
   }, []);
   return (
@@ -74,7 +74,8 @@ export default function Home() {
 
             <Col className={styles.containerSection}>
             <a href="/picstape">
-                <video ref={videoRef3} height="auto" width="100%"  className={styles.img}  src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif" class="w-100 shadow-1-strong rounded mb-4" autoplay loop> </video>
+             <Image alt="intpaint" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif"/>
+
              </a>
              <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
              <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
