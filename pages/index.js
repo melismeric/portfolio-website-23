@@ -111,7 +111,7 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col>
+            <Col className={styles.containerSection}>
               <a href="/ganflowers">
                 <Image alt="flower" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626213/flower_e9kygj.gif"/>
               </a>
@@ -150,7 +150,7 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col>
+            <Col className={styles.containerSection}>
               <a href="/wetmixer">
                 <Image alt="wtmxer" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1680626262/wtmxer_k25ecn.gif"/>
               </a>
@@ -158,7 +158,7 @@ export default function Home() {
               <figcaption className={styles.caption}>CCI Physical Computing Course Project 2021</figcaption>
               <br/>
               <a href="/lotus">
-                <Image alt="space" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/e286a3dae3911c19de521a30678a99e203c83825-600x600.gif"/>
+                <Image alt="space" width={320} height={320} className={styles.img} src="https://res.cloudinary.com/dfn3uxsf6/image/upload/v1683209354/ezgif.com-video-to-gif_t0bf2l.gif"/>
               </a>
               <figcaption className={styles.caption}>Musical Lotus</figcaption>
               <figcaption className={styles.caption}>Personal Project, Threejs, 2023</figcaption>
