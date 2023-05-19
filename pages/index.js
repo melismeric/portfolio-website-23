@@ -2,11 +2,11 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import Image from 'next/image'
+//import Image from 'next/image'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-//import { Image } from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 import React, { useRef, useEffect } from 'react';
 
 export default function Home() {
