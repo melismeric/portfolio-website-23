@@ -24,9 +24,10 @@ export default function Home() {
 
           <Row > 
             <Col className={styles.containerSection} >
-             <a href="/musicartworks">
-                <Image alt="rhino" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/9655fc2df6f02632a6be6704684f3d17f8978baf-512x512.gif"/>             </a>
-             <figcaption className={styles.caption} >Music Art with AI</figcaption>
+                      <a href="/imaginationTool">
+                          <Image alt="rhino" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/f427aee5d9417c0fcd614134a780c6858921c170-2512x1317.png"/>             </a>
+                      <figcaption className={styles.caption} >Imagination Tool</figcaption>
+                      <figcaption className={styles.caption} >UAL - Fam Studios Innovation UK Project 2023-2024</figcaption>
              <br/>
               <a href="/intpaint">
                 <Image alt="intpaint" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/643c13a6edcd8eba4601071c493666a4487c0c8a-1614x1214.png"/>             </a>
@@ -56,13 +57,13 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col className={styles.containerSection}>
-            <a href="/picstape">
-             <Image alt="picstape" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif"/>
+                  <Col className={styles.containerSection}>
+                      <a href="/musicartworks">
+                          <Image alt="rhino" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/9655fc2df6f02632a6be6704684f3d17f8978baf-512x512.gif" />             </a>
+                      <figcaption className={styles.caption} >Music Art with AI</figcaption>
+                      <figcaption className={styles.caption}>Personal Project 2022</figcaption>
 
-             </a>
-             <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
-             <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
+
              <br/>
                 <a href="/boid">
                   <Image alt="boid"  width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/555a0a57c81ab374e92f2931b4b3b595c2cac2e6-600x401.gif"/>              </a>
@@ -91,11 +92,13 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col className={styles.containerSection}>
-              <a href="/ganflowers">
-               <Image alt="flower" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/c4395a9f3e7ecb48f1a441c9c34c83df088e5ffa-256x256.gif"/>              </a>
-               <figcaption className={styles.caption}>AI Flowers</figcaption>
-               <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
+                  <Col className={styles.containerSection}>
+                      <a href="/picstape">
+                          <Image alt="picstape" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/b0981e352d03a6da1a3cac3dcc0b935b5b2e590b-512x512.gif" />
+                      </a>
+                      <figcaption className={styles.caption} >Spotify Playlist to Images [Picstape]</figcaption>
+                      <figcaption className={styles.caption} >CCI Final Project 2022</figcaption>
+
                <br/>
               <a href="/touchyfeely">
                 <Image alt="img" width={320} height={320} className={styles.img} src="/home/image.png"/>
@@ -125,7 +128,12 @@ export default function Home() {
               <br/>
             </Col>
 
-            <Col className={styles.containerSection}>
+                  <Col className={styles.containerSection}>
+                      <a href="/ganflowers">
+                          <Image alt="flower" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/c4395a9f3e7ecb48f1a441c9c34c83df088e5ffa-256x256.gif" />              </a>
+                      <figcaption className={styles.caption}>AI Flowers</figcaption>
+                      <figcaption className={styles.caption}>CCI Course Project 2022</figcaption>
+                      <br />
               <a href="/wetmixer">
               <Image alt="wtmxer" width={320} height={320} className={styles.img} src="https://cdn.sanity.io/images/cedgpqtk/production/34ce365eb3e77e87492560eca7dc87d209c80c2d-915x522.gif"/>              </a>
               <figcaption className={styles.caption}>Wetmixer</figcaption>
