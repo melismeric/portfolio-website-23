@@ -1,22 +1,23 @@
 .container {
-  min-height: 100vh;
-  padding: 0 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #080808;
-
+    min-height: 100vh;
+    padding: 0 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
 }
 
 .caption {
-  font-family: 'Montserrat-Regular'; 
+    font-family: 'ClashDisplay-Variable';
+    color: #42FDBE;
+    font-weight: semibold;
 }
 
 .title a {
-  color: #0070f3;
-  text-decoration: none;
-  font-family: 'Montserrat-Regular'; 
+    color: #DBE042;
+    text-decoration: none;
+    font-family: 'ClashDisplay-Variable';
 }
 
 .title a:hover,
@@ -68,12 +69,12 @@
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
+    .card:hover,
+    .card:focus,
+    .card:active {
+        color: #EFF35B;
+        border-color: #DBE042;
+    }
 
 .card h3 {
   margin: 0 0 1rem 0;
@@ -103,45 +104,45 @@
   height: auto;
 }
 
-.img:hover {
-   
-   border: 5px solid #ecb22c;
-   border-style: inset;
-}
+    .img:hover {
+        border: 5px solid #42FDBE;
+        border-style: inset;
+    }
 
 .video:hover {
-   
-   border: 5px solid #ecb22c;
-   border-style: inset;
+    border: 5px solid #42FDBE;
+    border-style: inset;
 }
 
 @font-face {
-  font-family: 'Montserrat-Regular';
-  src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+    font-family: 'ClashDisplay-Variable';
+    src: url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+
 }
 .containerSection:first-child {
-  display: flex;
-  align-items: flex-start; /* new */
-  margin-bottom: 25px;
-  flex-direction: column;
+    display: flex;
+    align-items: flex-start; /* new */
+    margin-bottom: 25px;
+    flex-direction: column;
 }
+
 
 
 @media (max-width: 1200px) {
-  .containerSection {
-    flex: 0 0 50%; /* Each column takes 50% of the width */
-    max-width: 50%;
-  }
+    .containerSection {
+        flex: 0 0 50%; /* Each column takes 50% of the width */
+        max-width: 50%;
+    }
 }
 
 @media (max-width: 768px) {
-  .containerSection {
-    flex: 0 0 100%; /* Each column takes 100% of the width on small screens */
-    max-width: 100%;
-  }
+    .containerSection {
+        flex: 0 0 100%; /* Each column takes 100% of the width on small screens */
+        max-width: 100%;
+    }
 }

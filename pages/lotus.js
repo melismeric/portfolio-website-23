@@ -398,9 +398,12 @@ const fragmentShader = `
   return (
 
   <div className={styles.page} style={{backgroundColor: "#000000"}}>
-  <Container>
-  <Link className={styles.headerTitle} style={{color:  "#FFF8E6"}} href="/">Melis Meriç</Link>
-  </Container>
+    <Head>
+        <title>Melis Meriç Portfolio Website</title>
+        <link rel="icon" href="/favicon.ico" />
+    </Head>
+
+    <Header />
     <div style={{marginTop: "auto"}} className="d-grid gap-2 justify-content-md-center">
 
        {showButton && <Button variant="info" size="lg" id="startButton"><div  className={styles.btnText} >Play Default Sound </div></Button>}

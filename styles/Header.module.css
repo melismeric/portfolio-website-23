@@ -1,19 +1,20 @@
 .title {
-  text-decoration: none; 
-  font-family: 'Montserrat-Regular'; 
-  text-shadow: 1px 1px #cf4521; 
-  color:  #FFF8E6;
-  font-size: 35px;
+    text-decoration: none;
+    font-family: 'ClashDisplay-Variable';
+    color: #02D084;
+    font-weight: bold;
+    font-size: 45px;
 }
 
 .contactTxt {
-  font-family: 'Montserrat-Regular'; 
-  font-weight: bold; color:#FFF8E6 ;
+    font-family: 'ClashDisplay-Variable';
+    font-weight: semibold;
+    color: #DBE042;
 }
 
 @font-face {
-  font-family: 'Montserrat-Regular';
-  src: url('/fonts/Montserrat-Regular.ttf') format('truetype');
+    font-family: 'ClashDisplay-Variable';
+    src: url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
 }
 
 .vert_align {
